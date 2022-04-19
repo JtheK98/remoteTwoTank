@@ -110,7 +110,7 @@ function changeTank (newValue)
 
 function checkTankValue(setPoint, inputField)
 {
-    if(inputField>190){
+    if(document.getElementById('velocityField').value>190){
         alert("Please enter value btw 0mm and 190mm");
         return(false);
     } else{

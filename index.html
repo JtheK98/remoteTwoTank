@@ -71,9 +71,8 @@
 
         <p>The current setpoint is: <span id="veloDiv">:="SP1_mm":</span></p>
         <!-- writing of the value "Velocity" requires the AWP_In_Variable - statement at begin of this page -->
-        <input type="number" min="0" max="190" step="1" id="velocityField" name='"Web2Plc".setPoint1' size="6">
+        <input type="number" placeholder="0mm to 190mm" min="0" max="190" step="1" id="velocityField" name='"Web2Plc".setPoint1' size="17">
         <input type="button" name="continue" onclick="checkTankValue('%22Web2Plc%22.setPoint1', 'velocityField')" value="Set Setpoint">
-        
         
         <!--------------------------------------------------------------------------------------------->
         <p>&nbsp;</p>
