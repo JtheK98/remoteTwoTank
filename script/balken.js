@@ -1,5 +1,44 @@
 var g_bPageRequested = false;
 
+//Graphzeugs
+var xVal = 0;
+var yVal = 100; 
+var updateInterval = 100;
+var dataLength = 20; // number of dataPoints visible at any point
+
+var dps = []; // dataPoints
+
+var chart = new CanvasJS.Chart("chartContainer", {
+title :{
+    text: "Dynamic Data"
+},
+data: [{
+    type: "line",
+    dataPoints: dps
+}]
+});
+
+var updateChart = function (count) {
+
+	count = count || 1;
+
+	for (var j = 0; j < count; j++) {
+		yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
+		dps.push({
+			x: xVal,
+			y: yVal
+		});
+		xVal++;
+	}
+
+	if (dps.length > dataLength) {
+		dps.shift();
+	}
+
+	chart.render();
+};
+
+
 // a timer will be started, after one second the funktion OnTimer will be called
 function Start() 
 {
@@ -7,6 +46,7 @@ function Start()
     ForceUpdate("Web2Plc.setPoint1");    // immediate initialization of the value visualization
     changeSpeed("Web2Plc.setPoint1");
     changeTank("Web2Plc.setPoint1");
+    updateChart(dataLength);
     setTimeout("OnTimer()",100);
 
 }
@@ -55,6 +95,7 @@ function OnTimer()
         ForceUpdate(dynValueInt);         // update with the provided value  
         changeSpeed(dynValueInt);
         changeTank(dynValueInt);
+        updateChart(dataLength);
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
         return;
