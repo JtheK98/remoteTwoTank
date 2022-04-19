@@ -1,0 +1,1 @@
+:="Web2Plc".setPoint1: :="SP1_mm":  :="Web2Plc".tankLevel1mm: :="Web2Plc".start1: :="Web2Plc".stop1: :="Web2Plc".running1: :="Web2Plc".stopped1:
