@@ -65,6 +65,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	border: 3px solid #1e1e1e;
     float: inline-start;
     margin-left: 2px;
+    margin-top: 4px;
 }
 
 #estop{
@@ -132,6 +133,26 @@ input[type=button], input[type=submit], input[type=reset] {
     display: inline;
     font-size: 20;
     padding: 0px 10px 0px 10px;
+}
+
+#note{
+    font-size: 24;
+    font-family: arial;
+    font-weight: bold;
+}
+
+#notetxt{
+    display: inline;
+    box-sizing: border-box;
+	width: 22%;
+	height: 150px;
+	border: 3px solid #1e1e1e;
+    font-size: 20;
+    font-family: arial;
+    float: right;
+    margin-right: 30px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 
