@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    background-color:#eee ;
+}
+
+nav {
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+}
+
+nav p{
+    float: left;
+    line-height: 55px;
+    display: inline-block;
+    line-height: 100px;
+}
+
+ul {
+margin-left: 210px;
+}
+
+ul li{
+    list-style: none;
+    display: inline-block;
+    float: left;
+    line-height: 100px;
+}
+
+ul li a {
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: arial;
+    color: #1e1e1e;
+    padding: 0 20px;
+}
+
+
+ul li a:hover {
+   color: rgb(128,128,128);
+}
+
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #1e1e1e;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+#headFlow1{
+    box-sizing: border-box;
+    width: 65%;
+    font-size: auto;
+	height: auto;
+	border: 3px solid #1e1e1e;
+    float: inline-start;
+    margin-left: 2px;
+}
+
+#estop{
+    background-color: red;
+    border: 5px solid yellowgreen;
+    color: black;
+    cursor: pointer;
+    font-size: 20;
+    font-family: Arial;
+    font-weight: bold;
+    margin: 4px 2px;
+    display: inline-block;
+    float: inline-end;
+    height: 50px;
+    width: 130px;
+}
+
+#headReadings{
+    font-size: 30;
+}
+
+#fieldset{
+    margin-top: 60px;
+    box-sizing: border-box;
+	width: 65%;
+	height: 300px;
+	border: 3px solid #1e1e1e;
+    margin-left: 2px;
+    font-size: 30;
+}
+
+#supply{
+    display: inline;
+    font-size: 20;
+}
+
+#value{
+    box-sizing: border-box;
+    border: 2px solid #1e1e1e;
+    width: 80;
+    background-color: white;
+    display: inline;
+    font-size: 20;
+}
+
+
+  

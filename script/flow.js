@@ -4,9 +4,8 @@ var g_bPageRequested = false;
 function Start() 
 {
     DetermineBrowser();
-    ForceUpdate("Web2Plc.setPoint1");    // immediate initialization of the value visualization
-    changeSpeed("Web2Plc.setPoint1");
-    changeTank("Web2Plc.setPoint1");
+    ForceUpdate("Web2Plc.pumpVoltage");    // immediate initialization of the value visualization
+    ForceUpdate("Web2Plc.flow1lpm");
     setTimeout("OnTimer()",100);
 
 }
@@ -94,28 +93,3 @@ function ForceUpdate(val)
     }
     g_bPageRequested = false; 
 }
-
-
-function changeSpeed(newValue)
-{
- document.getElementById("gauge.pointer").setAttribute("transform", "rotate(" + (newValue*1.42) + ",55,55)");
-}
-
-function changeTank (newValue)
-{
-	document.getElementById("tank.blue").setAttribute("y", 330 - (newValue*1.58));
-    document.getElementById("tank.blue").setAttribute("height", (newValue*1.58));
-			
-}
-
-function checkTankValue(setPoint, inputField)
-{
-    if(document.getElementById('velocityField').value>190 || document.getElementById('velocityField').value<0){
-        alert("Please enter value btw 0mm and 190mm");
-        return(false);
-    } else{
-        send_ajax_request(setPoint, inputField);
-    } 
-}
-
-//----------------------------------------s-------------------------------
