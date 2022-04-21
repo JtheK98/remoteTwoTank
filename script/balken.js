@@ -66,8 +66,8 @@ function Start()
         }]
         });
 
-    //renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,0,0);
-    renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength);
+    renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,0,0);
+    //renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength);
     setTimeout("OnTimer()",updateInterval);
 
 }
@@ -111,7 +111,7 @@ function OnTimer()
     dynValue = results[0].substr(count, signs.length);
     var dynValueInt = parseInt(dynValue);
 
-    //console.log(response)
+    console.log(response)
 
     var results = response.split(" ");
     //Splitting the results in single signs
@@ -126,7 +126,7 @@ function OnTimer()
         else {break;}		
     }
     dynValue2 = results[2].substr(count, signs.length);
-    var dynValueInt2 = parseFloat(dynValue2);
+    var dynValueInt2 = parseInt(dynValue2);
 
 
 
