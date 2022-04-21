@@ -114,6 +114,8 @@ function OnTimer()
     console.log(response)
 
     var results = response.split(" ");
+    console.log(results)
+
     //Splitting the results in single signs
     var signs = results[2].split("");
     var i;
@@ -126,6 +128,7 @@ function OnTimer()
         else {break;}		
     }
     dynValue2 = results[2].substr(count, signs.length);
+    console.log(dynValue2)
     var dynValueInt2 = parseInt(dynValue2);
 
 
