@@ -1,13 +1,15 @@
 var g_bPageRequested = false;
 
 //Graphzeugs
-var xVal = 0;
-var yVal = 100; 
+var xVal1 = 0;
+var yVal1 = 100; 
+var xVal2 = 0;
+var yVal2 = 100; 
 var updateInterval = 100;
 var dataLength = 20; // number of dataPoints visible at any point
 
-var dps = []; // dataPoints
-
+var dps_setpoint1 = []; // dataPoints
+var dps_tanklevel1 = [];
 
 var chart;
 var updateChart;
@@ -21,13 +23,14 @@ function Start()
     changeTank("Web2Plc.setPoint1");
 
     chart = new CanvasJS.Chart("chartContainer", {
+        zoomEnabled: true, 
         title :{
-            text: "Dynamic Data"
+            text: "Tank level 1"
         },
         axisX:{
             title : "Time",
             minimum : 0,
-            maximum : 500,
+            //maximum : 500,
             gridColor: "grey" ,
             gridThickness: 2   
         },
@@ -36,13 +39,35 @@ function Start()
             minimum : 0,
             maximum : 190,
         },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor:"pointer",
+            verticalAlign: "top",
+            fontSize: 22,
+            fontColor: "dimGrey",
+            itemclick : toggleDataSeries
+        },
         data: [{
             type: "line",
-            dataPoints: dps
+            yValueFormatString: "###.00mm",
+            showInLegend: true,
+            name: "Setpoint",
+            dataPoints: dps_setpoint1
+            },
+            {
+            type: "line",
+            yValueFormatString: "###.00mm",
+            showInLegend: true,
+            name: "Current tank level",
+            dataPoints: dps_tanklevel1
+            
         }]
         });
 
-    renderUpdatedChart(dps,chart,dataLength,0);
+    //renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,0,0);
+    renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength);
     setTimeout("OnTimer()",updateInterval);
 
 }
@@ -84,15 +109,34 @@ function OnTimer()
     }
     //delete signs which aren't numbers
     dynValue = results[0].substr(count, signs.length);
-    
     var dynValueInt = parseInt(dynValue);
+
+    //console.log(response)
+
+    var results = response.split(" ");
+    //Splitting the results in single signs
+    var signs = results[2].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue2 = results[2].substr(count, signs.length);
+    var dynValueInt2 = parseFloat(dynValue2);
+
+
 
     if (status < 300) {// check HTTP response status
         document.getElementById('veloDiv').innerHTML = results[1];
         ForceUpdate(dynValueInt);         // update with the provided value  
         changeSpeed(dynValueInt);
         changeTank(dynValueInt);
-        renderUpdatedChart(dps,chart,dataLength,dynValueInt);
+        renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,dynValueInt,dynValueInt2);
+        //renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength);
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
         return;
@@ -159,24 +203,50 @@ function checkTankValue(setPoint, inputField)
 //----------------------------------------s-------------------------------
 
 
-function renderUpdatedChart(dps,chart,dataLength,dynValueInt){
-
+function renderUpdatedChart(dps1,dps2,chart,dataLength,dynValueInt,dynValueInt2){
+//function renderUpdatedChart(dps1,dps2,chart,dataLength){
     dataLength = dataLength || 1;
 
     for (var j = 0; j < dataLength; j++) {
-        yVal = dynValueInt;
-        dps.push({
-            x: xVal,
-            y: yVal
+        yVal1 = dynValueInt;
+        yVal2 = dynValueInt2;
+        //yVal1 = 100;
+        //yVal2 = yVal1+30;
+        dps1.push({
+            x: xVal1,
+            y: yVal1
         });
-        xVal++;
+        dps2.push({
+            x: xVal2,
+            y: yVal2
+        });
+        xVal1++;
+        xVal2=xVal1
     }
 
-    if (dps.length > dataLength) {
-        dps.shift();
+    if (dps1.length > dataLength) {
+        dps1.shift();
     }
+    if (dps2.length > dataLength) {
+        dps2.shift();
+    }
+
+
+    chart.options.data[0].legendText = " Setpoint: " + yVal1.toFixed(2)+"mm";
+	chart.options.data[1].legendText = " Tank level: " + yVal2.toFixed(2)+"mm"; 
 
     chart.render();
 };
 
-//mehrere Datenreihen, toggeln
+function toggleDataSeries(e) {
+	if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		e.dataSeries.visible = false;
+	}
+	else {
+		e.dataSeries.visible = true;
+	}
+	chart.render();
+}
+
+
+//setpoint und tanklevel
