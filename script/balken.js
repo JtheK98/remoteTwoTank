@@ -8,36 +8,9 @@ var dataLength = 20; // number of dataPoints visible at any point
 
 var dps = []; // dataPoints
 
-var chart = new CanvasJS.Chart("chartContainer", {
-title :{
-    text: "Dynamic Data"
-},
-data: [{
-    type: "line",
-    dataPoints: dps
-}]
-});
 
-var updateChart = function (count) {
-
-	count = count || 1;
-
-	for (var j = 0; j < count; j++) {
-		yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-		dps.push({
-			x: xVal,
-			y: yVal
-		});
-		xVal++;
-	}
-
-	if (dps.length > dataLength) {
-		dps.shift();
-	}
-
-	chart.render();
-};
-
+var chart;
+var updateChart;
 
 // a timer will be started, after one second the funktion OnTimer will be called
 function Start() 
@@ -46,10 +19,34 @@ function Start()
     ForceUpdate("Web2Plc.setPoint1");    // immediate initialization of the value visualization
     changeSpeed("Web2Plc.setPoint1");
     changeTank("Web2Plc.setPoint1");
-    updateChart(dataLength);
-    setTimeout("OnTimer()",100);
+
+    chart = new CanvasJS.Chart("chartContainer", {
+        title :{
+            text: "Dynamic Data"
+        },
+        axisX:{
+            title : "Time",
+            minimum : 0,
+            maximum : 500,
+            gridColor: "grey" ,
+            gridThickness: 2   
+        },
+        axisY:{
+            title : "Tank level in mm",
+            minimum : 0,
+            maximum : 190,
+        },
+        data: [{
+            type: "line",
+            dataPoints: dps
+        }]
+        });
+
+    renderUpdatedChart(dps,chart,dataLength,0);
+    setTimeout("OnTimer()",updateInterval);
 
 }
+
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
 // <colon><equalsign><Variablenname><colon> is the common syntax for variable references.
@@ -66,7 +63,7 @@ function OnTimer()
         DoHttpRequest(this, "update.dat",   UpdateCallback, true);    // response is javascript
         // this asynchronous method does silently update the data within the browser
     }
-    setTimeout("OnTimer()", 200);  // the function OnTimer is to be called every 200 ms
+    //setTimeout("OnTimer()", 200);  // the function OnTimer is to be called every 200 ms
 }
 
 // update11.dat has been received
@@ -95,7 +92,7 @@ function OnTimer()
         ForceUpdate(dynValueInt);         // update with the provided value  
         changeSpeed(dynValueInt);
         changeTank(dynValueInt);
-        updateChart(dataLength);
+        renderUpdatedChart(dps,chart,dataLength,dynValueInt);
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
         return;
@@ -160,3 +157,26 @@ function checkTankValue(setPoint, inputField)
 }
 
 //----------------------------------------s-------------------------------
+
+
+function renderUpdatedChart(dps,chart,dataLength,dynValueInt){
+
+    dataLength = dataLength || 1;
+
+    for (var j = 0; j < dataLength; j++) {
+        yVal = dynValueInt;
+        dps.push({
+            x: xVal,
+            y: yVal
+        });
+        xVal++;
+    }
+
+    if (dps.length > dataLength) {
+        dps.shift();
+    }
+
+    chart.render();
+};
+
+//mehrere Datenreihen, toggeln
