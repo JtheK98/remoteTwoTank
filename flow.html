@@ -35,7 +35,7 @@
 
     </head>
 
-    <body>
+    <body onload="Start()">
         <nav>
             <p><img src="img/university.png" alt="Logo" style="width:210px;height:100px;"></p>
             <ul>
@@ -49,16 +49,27 @@
 
         <form>
             <input type="submit" id="estop" value="E-Stop">
+            <input type="hidden" name='"Web2Plc".eStopReset' value="1">
+            <input type="hidden" name='"Web2Plc".eStopReset' value="0">
+        </form>
+
+
+        <form>
+            <input type="submit" id="eReset" value="E-Stop Reset">
             <input type="hidden" name='"Web2Plc".eStop' value="1">
             <input type="hidden" name='"Web2Plc".eStop' value="0">
         </form>
 
+
         <!--<h2 id="headFlow2">System Readings </h2>-->
         <fieldset id="fieldset" >
             <legend>System Readings</legend>
-            <div id="supply">Pump Supply Voltage:</div> <div id="value">:="Web2Plc".pumpVoltage:</div>
+            <p id="supply">Pump Supply Voltage: <span id="voltage">0 V</span></p>
+            <!--<div id="supply">Pump Supply Voltage:</div> <div id="value">:="Web2Plc".pumpVoltage:</div>-->
             <br>
-            <div id="supply">Flowrate (FM1):</div> <div id="value">:="Web2Plc".flow1:</div>
+            <br>
+            <p id="supply">Flowrate (FM1): <span id="flow">0 l/min</span></p>
+            <!--<div id="supply">Flowrate (FM1):</div> <div id="value2">:="Web2Plc".flow1:</div>-->
         </fieldset>
 
 
