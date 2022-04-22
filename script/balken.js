@@ -67,7 +67,7 @@ function Start()
         });
 
     renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,0,0);
-    //renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength);
+
     setTimeout("OnTimer()",updateInterval);
 
 }
@@ -109,7 +109,7 @@ function OnTimer()
     }
     //delete signs which aren't numbers
     dynValue = results[0].substr(count, signs.length);
-    var dynValueInt = parseInt(dynValue);
+    var dynValueInt = parseFloat(dynValue);
 
     console.log(response)
 
@@ -129,7 +129,7 @@ function OnTimer()
     }
     dynValue2 = results[2].substr(count, signs.length);
     console.log(dynValue2)
-    var dynValueInt2 = parseInt(dynValue2);
+    var dynValueInt2 = parseFloat(dynValue2);
 
 
 
@@ -139,7 +139,6 @@ function OnTimer()
         changeSpeed(dynValueInt);
         changeTank(dynValueInt);
         renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,dynValueInt,dynValueInt2);
-        //renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength);
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
         return;
@@ -203,11 +202,9 @@ function checkTankValue(setPoint, inputField)
     } 
 }
 
-//----------------------------------------s-------------------------------
 
 
 function renderUpdatedChart(dps1,dps2,chart,dataLength,dynValueInt,dynValueInt2){
-//function renderUpdatedChart(dps1,dps2,chart,dataLength){
     dataLength = dataLength || 1;
 
     for (var j = 0; j < dataLength; j++) {
@@ -252,4 +249,4 @@ function toggleDataSeries(e) {
 }
 
 
-//setpoint und tanklevel
+
