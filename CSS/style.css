@@ -70,7 +70,7 @@ input[type=button], input[type=submit], input[type=reset] {
 
 #estop{
     background-color: red;
-    border: 5px solid yellowgreen;
+    border: 5px solid rgb(0, 0, 0);
     color: black;
     cursor: pointer;
     font-size: 20;
@@ -127,6 +127,36 @@ input[type=button], input[type=submit], input[type=reset] {
     font-size: 30;
 }
 
+#operator{
+    margin-top: 10px;
+    box-sizing: border-box;
+	width: 50%;
+	height: auto;
+	border: 3px solid #1e1e1e;
+    margin-left: 2px;
+    font-size: 30;
+}
+
+#datasheet{
+    margin-top: 10px;
+    box-sizing: border-box;
+	width: 27%;
+	height: auto;
+	border: 3px solid #1e1e1e;
+    margin-left: 2px;
+    font-size: 30;
+}
+
+#tankvisualisation{
+    margin-top: 10px;
+    box-sizing: border-box;
+	width: 27%;
+	height: auto;
+	border: 3px solid #1e1e1e;
+    margin-left: 2px;
+    font-size: 30;
+}
+
 #supply{
     display: inline;
     font-size: 20;
@@ -142,6 +172,24 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 #flow{
+    box-sizing: border-box;
+    border: 2px solid #1e1e1e;
+    background-color: white;
+    display: inline;
+    font-size: 20;
+    padding: 0px 10px 0px 10px;
+}
+
+#level{
+    box-sizing: border-box;
+    border: 2px solid #1e1e1e;
+    background-color: white;
+    display: inline;
+    font-size: 20;
+    padding: 0px 10px 0px 10px;
+}
+
+#current{
     box-sizing: border-box;
     border: 2px solid #1e1e1e;
     background-color: white;
