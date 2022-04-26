@@ -1,5 +1,10 @@
 var g_bPageRequested = false;
 
+var elementStart;
+var elementStop;
+var elementReservoir;
+var elementTankEmpty;
+
 // a timer will be started, after one second the funktion OnTimer will be called
 function Start() 
 {
@@ -9,6 +14,19 @@ function Start()
     changeTank("Web2Plc.tankLevel1mm");
     setTimeout("OnTimer()",100);
     setTimeout("OnTimer2()",150);
+
+
+    elementStart = document.getElementById('start1');
+    elementStart.addEventListener("click", () => {
+        document.getElementById("pump1running").setAttribute("fill", "green");
+        document.getElementById("pump1stopped").setAttribute("fill", "white");
+    });
+    
+    elementStart = document.getElementById('stop1');
+    elementStart.addEventListener("click", () => {
+        document.getElementById("pump1running").setAttribute("fill", "white");
+        document.getElementById("pump1stopped").setAttribute("fill", "red");
+    });
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -23,7 +41,7 @@ function OnTimer()
         g_bPageRequested = true;
         // request the update page asynchronously, function UpdateCallback is called if response
         // has been received           
-        DoHttpRequest(this, "update.dat",   UpdateCallback, true);    // response is javascript
+        DoHttpRequest(this, "update2.dat",   UpdateCallback, true);    // response is javascript
         // this asynchronous method does silently update the data within the browser
     }
     setTimeout("OnTimer()", 200);  // the function OnTimer is to be called every 200 ms
@@ -36,7 +54,7 @@ function OnTimer2()
         g_bPageRequested = true;
         // request the update page asynchronously, function UpdateCallback is called if response
         // has been received           
-        DoHttpRequest(this, "update.dat",   UpdateCallback2, true);
+        DoHttpRequest(this, "update2.dat",   UpdateCallback2, true);
         // this asynchronous method does silently update the data within the browser
     }
     setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called every 200 ms
@@ -63,9 +81,40 @@ function OnTimer2()
     
     var dynValueInt = parseInt(dynValue);
 
+    var signs = results[11].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue2 = results[11].substr(count, signs.length);
+
+    var dynValueInt2 = parseFloat(dynValue2);
+
+    var signs = results[10].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue3 = results[10].substr(count, signs.length);
+    var dynValueInt3 = parseFloat(dynValue3);
+
+
     if (status < 300) {// check HTTP response status
         ForceUpdate(dynValueInt);         // update with the provided value  
         changeTank(dynValueInt);
+        changeColorTankEmpty(dynValueInt2);
+        changeColorReservoir(dynValueInt3)
+
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
         return;
@@ -158,4 +207,27 @@ function changeTank (newValue)
 			
 }
 
-//buttons für operator ansteuern, platzierung der einzelnen felder, buttons von Jens, Leuchten ansteuern reservoir und tank1 empty farben ändern
+function changeColorReservoir(newValue)
+{
+	if (newValue==1) {
+        document.getElementById("reservoirempty").setAttribute("fill", "red");
+      }
+    if (newValue==0) {
+        document.getElementById("reservoirempty").setAttribute("fill", "white");
+    } 
+			
+}
+
+function changeColorTankEmpty(newValue)
+{
+	if (newValue==1) {
+        document.getElementById("tank1empty").setAttribute("fill", "red");
+      }
+    if (newValue==0) {
+        document.getElementById("tank1empty").setAttribute("fill", "white");
+    } 
+			
+}
+
+
+//buttons für operator ansteuern, platzierung der einzelnen felder, buttons von Jens

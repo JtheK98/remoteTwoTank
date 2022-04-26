@@ -33,7 +33,6 @@
         <script type="text/javascript" src="script/ajaxbase.js"></script>
         <script type="text/javascript" src="script/canvasjs.min.js"></script>
 
-
     </head>
 
     <body onload="Start()">
@@ -63,8 +62,20 @@
             <input type="hidden" name='"Web2Plc".eStop' value="0">
         </form>
 
+        <fieldset id="datasheet" >
+            <legend>Sensor Information</legend>
+            <p>
+                <a href="https://www.icenta.co.uk/uploads/1/1/4/7/114709647/sitrans-lc300-capacitance-level-transmitter-ic.pdf" aria-label="datasheet level sensor">
+                    <img src="img/levelsensorinfo.PNG" alt="Sensor info" style="width:400;height:auto;">
+                </a>
+            </p>
+            <p>
+                <a href="https://www.icenta.co.uk/uploads/1/1/4/7/114709647/sitrans-lc300-capacitance-level-transmitter-ic.pdf" aria-label="datasheet level sensor">
+                    <img src="img/levelsensorspecification.PNG" alt="Sensor specification" style="width:400px;height:auto;">
+                </a>
+            </p>
+        </fieldset>
 
-        <!--<h2 id="headFlow2">System Readings </h2>-->
         <fieldset id="fieldset" >
             <legend>System Readings</legend>
             <p id="supply">Liquid level: <span id="level">0 mm</span></p>
@@ -96,32 +107,17 @@
                 </svg>
             </p>
 
-            <form>
-                <input type="submit" id="start1" value="Start Pump1">
-                <input type="hidden" name='"Web2Plc".start1' value="1">
-                <input type="hidden" name='"Web2Plc".start1' value="0">
-            </form>
-            <form>
-                <input type="submit" id="stop1" value="Stop Pump1">
-                <input type="hidden" name='"Web2Plc".stop1' value="1">
-                <input type="hidden" name='"Web2Plc".stop1' value="0">
-            </form>
+            <input type="submit" id="start1" value="Start Pump1">
+            <input type="hidden" name='"Web2Plc".start1' value="1">
+            <input type="hidden" name='"Web2Plc".start1' value="0">
+            <input type="submit" id="stop1" value="Stop Pump1">
+            <input type="hidden" name='"Web2Plc".stop1' value="1">
+            <input type="hidden" name='"Web2Plc".stop1' value="0">
+
 
         </fieldset>
 
-        <fieldset id="datasheet" >
-            <legend>Sensor Information</legend>
-            <p>
-                <a href="https://www.icenta.co.uk/uploads/1/1/4/7/114709647/sitrans-lc300-capacitance-level-transmitter-ic.pdf" aria-label="datasheet level sensor">
-                    <img src="img/levelsensorinfo.PNG" alt="Sensor info" style="width:400;height:auto;">
-                </a>
-            </p>
-            <p>
-                <a href="https://www.icenta.co.uk/uploads/1/1/4/7/114709647/sitrans-lc300-capacitance-level-transmitter-ic.pdf" aria-label="datasheet level sensor">
-                    <img src="img/levelsensorspecification.PNG" alt="Sensor specification" style="width:400px;height:auto;">
-                </a>
-            </p>
-        </fieldset>
+
 
         <fieldset id="tankvisualisation">
             <legend>Level Sensor LC300</legend>
