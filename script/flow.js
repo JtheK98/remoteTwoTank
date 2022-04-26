@@ -42,7 +42,7 @@ function OnTimer2()
 }
 
 // update11.dat has been received
-   function UpdateCallback(obj, response, status) {
+function UpdateCallback(obj, response, status) {
     var ok;
     //Splitting the results
     var results = response.split(" ");
@@ -63,7 +63,8 @@ function OnTimer2()
     var dynValueInt = parseInt(dynValue);
 
     if (status < 300) {// check HTTP response status
-        ForceUpdate(dynValueInt);         // update with the provided value  
+        ForceUpdate(dynValueInt);         // update with the provided value 
+        
        
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
@@ -103,6 +104,7 @@ function UpdateCallback2(obj, response, status) {
 
     if (status < 300) {// check HTTP response status
         ForceUpdate2(dynValueInt);         // update with the provided value  
+        updateInput(); 
        
         g_bPageRequested = false;
         setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called in 200 ms
@@ -118,6 +120,7 @@ function UpdateCallback2(obj, response, status) {
         setTimeout("OnTimer2()", 1100);  // the function OnTimer is to be called in 1 sec
     }
 }
+
 // Within the page update11_ajax.html or update11_ajax.js the function ForceUpdate is called with the current value.
 // This value (0..255) controls the width of table "table2" within the table "table1"
 function ForceUpdate(val) 
@@ -148,4 +151,25 @@ function ForceUpdate2(val)
        td.innerHTML   = val+" l/min";
     }
     g_bPageRequested = false; 
+}
+
+function updateInput(){
+    if("Web2Plc.exper1" == 1){
+        document.getElementById("exper1").style.background = "grey";
+        document.getElementById("exper1").value = "Deactivate";   
+    }
+    else{
+        document.getElementById("exper1").style.background = "grey";
+        document.getElementById("exper1").value = "Activate";    
+    }
+    
+}
+
+function updateValue(){
+    if("Web2Plc.exper1" == 1){
+        document.getElementById("value1").value = 0;
+    }
+    else{
+        document.getElementById("value1").value = 1;
+    }
 }

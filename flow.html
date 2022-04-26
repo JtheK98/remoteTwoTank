@@ -12,10 +12,10 @@
     <!-- AWP_In_Variable Name='"Web2Plc".eStopLight'-->
     <!-- AWP_In_Variable Name='"Web2Plc".setPoint1'-->
     <!-- AWP_In_Variable Name='"Web2Plc".tankLevel1mm'-->
-    <!-- AWP_In_Variable Name='"Web2Plc.setPoint1"'-->
-    <!-- AWP_In_Variable Name='"Web2Plc.flow1"'-->
-    <!-- AWP_In_Variable Name='"Web2Plc.pumpVoltage"'-->
-    
+    <!-- AWP_In_Variable Name='"Web2Plc".setPoint1'-->
+    <!-- AWP_In_Variable Name='"Web2Plc".flow1'-->
+    <!-- AWP_In_Variable Name='"Web2Plc".pumpVoltage'-->
+    <!-- AWP_In_Variable Name='"Web2Plc".exper1'-->
 
     <head>
         <meta http-equiv="Content-Language" content="en" >
@@ -49,15 +49,20 @@
 
         <form>
             <input type="submit" id="estop" value="E-Stop">
-            <input type="hidden" name='"Web2Plc".eStopReset' value="1">
-            <input type="hidden" name='"Web2Plc".eStopReset' value="0">
+            <input type="hidden" name='"Web2Plc".eStop' value="1">
+            <input type="hidden" name='"Web2Plc".eStop' value="0">
         </form>
 
 
         <form>
             <input type="submit" id="eReset" value="E-Stop Reset">
-            <input type="hidden" name='"Web2Plc".eStop' value="1">
-            <input type="hidden" name='"Web2Plc".eStop' value="0">
+            <input type="hidden" name='"Web2Plc".eStopReset' value="1">
+            <input type="hidden" name='"Web2Plc".eStopReset' value="0">
+        </form>
+
+        <form>
+            <input type="submit" id="exper1" value="Act" onclick= "updateValue()">
+            <input type="hidden" id="value1" name='"Web2Plc".exper1'>
         </form>
 
 
@@ -74,7 +79,6 @@
             <p id="note">NOTE!!!</p>
             It is important that the changes in supply voltage <br> are made in one direction only, <br> either increasing or decreasing. 
         </div>
-
 
     </body>
 
