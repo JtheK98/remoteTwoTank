@@ -16,6 +16,7 @@
     <!-- AWP_In_Variable Name='"Web2Plc.flow1"'-->
     <!-- AWP_In_Variable Name='"Web2Plc.pumpVoltage"'-->
     <!-- AWP_In_Variable Name='"Web2Plc.level1mA"'-->
+
     
 
     <head>
@@ -48,7 +49,7 @@
             </ul>
         </nav>
 
-        <h1 id="headFlow1">Experiment 2: Level Sensor Calibration </h1>
+        <h1 id="headFlow1">Experiment 3: Open Loop System </h1>
 
         <form>
             <input type="submit" id="estop" value="E-Stop">
@@ -63,40 +64,20 @@
             <input type="hidden" name='"Web2Plc".eStopReset' value="0">
         </form>
 
-        <fieldset id="datasheet" >
-            <legend>Sensor Information</legend>
-            <p>
-                <a href="https://www.icenta.co.uk/uploads/1/1/4/7/114709647/sitrans-lc300-capacitance-level-transmitter-ic.pdf" aria-label="datasheet level sensor">
-                    <img src="img/levelsensorinfo.PNG" alt="Sensor info" style="width:400;height:auto;">
-                </a>
-            </p>
-            <p>
-                <a href="https://www.icenta.co.uk/uploads/1/1/4/7/114709647/sitrans-lc300-capacitance-level-transmitter-ic.pdf" aria-label="datasheet level sensor">
-                    <img src="img/levelsensorspecification.PNG" alt="Sensor specification" style="width:400px;height:auto;">
-                </a>
-            </p>
-        </fieldset>
 
         <fieldset id="fieldset" >
             <legend>System Readings</legend>
+            <p id="supply">Pump Supply Voltage: <span id="voltage">0 V</span></p>
+            <br>
+            <br>
             <p id="supply">Liquid level: <span id="level">0 mm</span></p>
             <br>
             <br>
-            <p id="supply">Sensor output: <span id="current">4 mA</span></p>
+            <p id="supply">Flowrate (FM1): <span id="flow">0 l/min</span></p>
         </fieldset>
 
         <fieldset id="operator" >
             <legend>Operator Panel</legend>
-            <p>
-                <svg height="150" width="200">
-                    <circle id="tank1empty" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />
-                    <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Tank 1 empty</text>
-                </svg> 
-                <svg height="150" width="200">
-                    <circle id="resevoirempty" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />
-                    <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Resevoir empty</text>
-                </svg>
-            </p>
             <p>
                 <svg height="150" width="200">
                     <circle id="pump1running" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />

@@ -9,8 +9,8 @@ var elementTankEmpty;
 function Start() 
 {
     DetermineBrowser();
-    ForceUpdate("Web2Plc.tankLevel1mm");    // immediate initialization of the value visualization
-    ForceUpdate2("Web2Plc.level1mA");
+    ForceUpdate("Web2Plc.tankLevel1mm","Web2Plc.flow1");    // immediate initialization of the value visualization
+    ForceUpdate2("Web2Plc.pumpVoltage");
     changeTank("Web2Plc.tankLevel1mm");
     setTimeout("OnTimer()",100);
     setTimeout("OnTimer2()",150);
@@ -81,7 +81,7 @@ function OnTimer2()
     
     var dynValueInt = parseInt(dynValue);
 
-    var signs = results[11].split("");
+    var signs = results[2].split("");
     var i;
     var count = 0;
     for (i = 0; i < signs.length; i++) {
@@ -91,29 +91,15 @@ function OnTimer2()
         }
         else {break;}		
     }
-    dynValue2 = results[11].substr(count, signs.length);
+    dynValue2 = results[2].substr(count, signs.length);
 
     var dynValueInt2 = parseFloat(dynValue2);
 
-    var signs = results[10].split("");
-    var i;
-    var count = 0;
-    for (i = 0; i < signs.length; i++) {
-        //Check if the first signs are numbers
-        if (true == isNaN(signs[i])) {
-            count = count + 1;
-        }
-        else {break;}		
-    }
-    dynValue3 = results[10].substr(count, signs.length);
-    var dynValueInt3 = parseFloat(dynValue3);
-
 
     if (status < 300) {// check HTTP response status
-        ForceUpdate(dynValueInt);         // update with the provided value  
+        ForceUpdate(dynValueInt,dynValueInt2);         // update with the provided value  
         changeTank(dynValueInt);
-        changeColorTankEmpty(dynValueInt2);
-        changeColorResevoir(dynValueInt3)
+
 
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
@@ -136,7 +122,7 @@ function UpdateCallback2(obj, response, status) {
     //Splitting the results
     var results = response.split(" ");
     //Splitting the results in single signs
-    var signs = results[9].split("");
+    var signs = results[1].split("");
     var i;
     var count = 0;
     for (i = 0; i < signs.length; i++) {
@@ -147,7 +133,7 @@ function UpdateCallback2(obj, response, status) {
         else {break;}		
     }
     //delete signs which aren't numbers
-    dynValue = results[9].substr(count, signs.length);
+    dynValue = results[1].substr(count, signs.length);
     
     var dynValueInt = parseInt(dynValue);
 
@@ -170,17 +156,26 @@ function UpdateCallback2(obj, response, status) {
 }
 // Within the page update11_ajax.html or update11_ajax.js the function ForceUpdate is called with the current value.
 // This value (0..255) controls the width of table "table2" within the table "table1"
-function ForceUpdate(val) 
+function ForceUpdate(val1,val2) 
 {
 
     var td = parent.document.getElementById("level");      // display value numerically
     if (td.textContent) 
     {                                // textContent is ok for Firefox, not for IE
-       td.textContent = val+" mm";
+       td.textContent = val1+" mm";
     }
     else 
     {
-       td.innerHTML   = val+" mm";
+       td.innerHTML   = val1+" mm";
+    }
+    var td = parent.document.getElementById("flow");      // display value numerically
+    if (td.textContent) 
+    {                                // textContent is ok for Firefox, not for IE
+       td.textContent = val2+" l/min";
+    }
+    else 
+    {
+       td.innerHTML   = val2+" l/min";
     }
     g_bPageRequested = false; 
 }
@@ -188,14 +183,14 @@ function ForceUpdate(val)
 function ForceUpdate2(val) 
 {
 
-    var td = parent.document.getElementById("current");      // display value numerically
+    var td = parent.document.getElementById("voltage");      // display value numerically
     if (td.textContent) 
     {                                // textContent is ok for Firefox, not for IE
-       td.textContent = val+" mA";
+       td.textContent = val+" V";
     }
     else 
     {
-       td.innerHTML   = val+" mA";
+       td.innerHTML   = val+" V";
     }
     g_bPageRequested = false; 
 }
@@ -204,28 +199,6 @@ function changeTank (newValue)
 {
 	document.getElementById("tank.blue").setAttribute("y", 330 - (newValue*1.58));
     document.getElementById("tank.blue").setAttribute("height", (newValue*1.58));
-			
-}
-
-function changeColorResevoir(newValue)
-{
-	if (newValue==1) {
-        document.getElementById("resevoirempty").setAttribute("fill", "red");
-      }
-    if (newValue==0) {
-        document.getElementById("resevoirempty").setAttribute("fill", "white");
-    } 
-			
-}
-
-function changeColorTankEmpty(newValue)
-{
-	if (newValue==1) {
-        document.getElementById("tank1empty").setAttribute("fill", "red");
-      }
-    if (newValue==0) {
-        document.getElementById("tank1empty").setAttribute("fill", "white");
-    } 
 			
 }
 
