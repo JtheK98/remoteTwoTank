@@ -4,10 +4,12 @@ var g_bPageRequested = false;
 function Start() 
 {
     DetermineBrowser();
-    ForceUpdate("Web2Plc.pumpVoltage");    // immediate initialization of the value visualization
-    ForceUpdate2("Web2Plc.flow1");
+    ForceUpdate(0)    // immediate initialization of the value visualization
+    ForceUpdate2(0);
+    updateInput(0)
     setTimeout("OnTimer()",100);
     setTimeout("OnTimer2()",150);
+    setTimeout("OnTimer3()",200)
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -35,10 +37,23 @@ function OnTimer2()
         g_bPageRequested = true;
         // request the update page asynchronously, function UpdateCallback is called if response
         // has been received           
-        DoHttpRequest(this, "update.dat",   UpdateCallback2, true);
+        DoHttpRequest(this, "update.dat", UpdateCallback2, true);
         // this asynchronous method does silently update the data within the browser
     }
     setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called every 200 ms
+}
+
+function OnTimer3() 
+{
+    if (! g_bPageRequested) 
+    {
+        g_bPageRequested = true;
+        // request the update page asynchronously, function UpdateCallback is called if response
+        // has been received           
+        DoHttpRequest(this, "update.dat", UpdateCallback3, true);
+        // this asynchronous method does silently update the data within the browser
+    }
+    setTimeout("OnTimer2()", 300);  // the function OnTimer is to be called every 200 ms
 }
 
 // update11.dat has been received
@@ -104,7 +119,6 @@ function UpdateCallback2(obj, response, status) {
 
     if (status < 300) {// check HTTP response status
         ForceUpdate2(dynValueInt);         // update with the provided value  
-        updateInput(); 
        
         g_bPageRequested = false;
         setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called in 200 ms
@@ -118,6 +132,46 @@ function UpdateCallback2(obj, response, status) {
     g_bPageRequested = false;
     if (ok) {
         setTimeout("OnTimer2()", 1100);  // the function OnTimer is to be called in 1 sec
+    }
+}
+
+
+// update11.dat has been received
+function UpdateCallback3(obj, response, status) {
+    var ok;
+    //Splitting the results
+    var results = response.split(" ");
+    //Splitting the results in single signs
+    var signs = results[3].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    //delete signs which aren't numbers
+    dynValue = results[3].substr(count, signs.length);
+    
+    var dynValueInt = parseInt(dynValue);
+
+    if (status < 300) {// check HTTP response status 
+        updateInput(dynValueInt); 
+       
+        g_bPageRequested = false;
+        setTimeout("OnTimer3()", 300);  // the function OnTimer is to be called in 200 ms
+        return;
+    }
+    if (status == 503) {               // service currently unvailable , server overloaded 
+        ok = confirm(dynValueInt);
+    } else {
+        ok = confirm("FAILED: HTTP error " + status);
+    }
+    g_bPageRequested = false;
+    if (ok) {
+        setTimeout("OnTimer3()", 1200);  // the function OnTimer is to be called in 1 sec
     }
 }
 
@@ -153,23 +207,15 @@ function ForceUpdate2(val)
     g_bPageRequested = false; 
 }
 
-function updateInput(){
-    if("Web2Plc.exper1" == 1){
+function updateInput(flow){
+    if(flow == 1){
         document.getElementById("exper1").style.background = "grey";
         document.getElementById("exper1").value = "Deactivate";   
-    }
-    else{
-        document.getElementById("exper1").style.background = "grey";
-        document.getElementById("exper1").value = "Activate";    
-    }
-    
-}
-
-function updateValue(){
-    if("Web2Plc.exper1" == 1){
         document.getElementById("value1").value = 0;
     }
     else{
-        document.getElementById("value1").value = 1;
+        document.getElementById("exper1").style.background = "grey";
+        document.getElementById("exper1").value = "Activate";  
+        document.getElementById("value1").value = 1;  
     }
 }
