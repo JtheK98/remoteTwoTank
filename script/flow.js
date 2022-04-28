@@ -6,10 +6,10 @@ function Start()
     DetermineBrowser();
     ForceUpdate(0)    // immediate initialization of the value visualization
     ForceUpdate2(0);
-    updateInput(0)
-    setTimeout("OnTimer()",100);
-    setTimeout("OnTimer2()",150);
-    setTimeout("OnTimer3()",200)
+    updateInput(NaN);
+    setTimeout("OnTimer()",200);
+    setTimeout("OnTimer2()",250);
+    setTimeout("OnTimer3()",100)
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -53,7 +53,7 @@ function OnTimer3()
         DoHttpRequest(this, "update.dat", UpdateCallback3, true);
         // this asynchronous method does silently update the data within the browser
     }
-    setTimeout("OnTimer2()", 300);  // the function OnTimer is to be called every 200 ms
+    setTimeout("OnTimer3()", 100);  // the function OnTimer is to be called every 200 ms
 }
 
 // update11.dat has been received
@@ -161,7 +161,7 @@ function UpdateCallback3(obj, response, status) {
         updateInput(dynValueInt); 
        
         g_bPageRequested = false;
-        setTimeout("OnTimer3()", 300);  // the function OnTimer is to be called in 200 ms
+        setTimeout("OnTimer3()", 100);  // the function OnTimer is to be called in 200 ms
         return;
     }
     if (status == 503) {               // service currently unvailable , server overloaded 
@@ -171,7 +171,7 @@ function UpdateCallback3(obj, response, status) {
     }
     g_bPageRequested = false;
     if (ok) {
-        setTimeout("OnTimer3()", 1200);  // the function OnTimer is to be called in 1 sec
+        setTimeout("OnTimer3()", 800);  // the function OnTimer is to be called in 1 sec
     }
 }
 
@@ -207,15 +207,29 @@ function ForceUpdate2(val)
     g_bPageRequested = false; 
 }
 
-function updateInput(flow){
-    if(flow == 1){
-        document.getElementById("exper1").style.background = "grey";
+function updateInput(indicator){
+ 
+    if(indicator > 1){
+        document.getElementById("exper1").style.background = "#ffcccb";
         document.getElementById("exper1").value = "Deactivate";   
         document.getElementById("value1").value = 0;
     }
     else{
-        document.getElementById("exper1").style.background = "grey";
+        document.getElementById("exper1").style.background = "#ddeedc";
         document.getElementById("exper1").value = "Activate";  
         document.getElementById("value1").value = 1;  
     }
 }
+
+
+function checkVoltage(setPoint, inputField)
+{
+    if(document.getElementById('voltageField').value>10 || document.getElementById('voltageField').value<0){
+        alert("Please enter value btw 0V and 10V");
+        return(false);
+    } else{
+        send_ajax_request(setPoint, inputField);
+    } 
+}
+
+
