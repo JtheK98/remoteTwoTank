@@ -65,7 +65,7 @@
         </form>
 
 
-        <fieldset id="fieldset" >
+        <fieldset id="system" >
             <legend>System Readings</legend>
             <p id="supply">Pump Supply Voltage: <span id="voltage">0 V</span></p>
             <br>
@@ -88,13 +88,17 @@
                     <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 stopped</text>
                 </svg>
             </p>
+            <form>
+                <input type="submit" id="start1" value="Start Pump1">
+                <input type="hidden" name='"Web2Plc".start1' value="1">
+                <input type="hidden" name='"Web2Plc".start1' value="0">
+            </form>
+            <form>
+                <input type="submit" id="stop1" value="Stop Pump1">
+                <input type="hidden" name='"Web2Plc".stop1' value="1">
+                <input type="hidden" name='"Web2Plc".stop1' value="0">
+            </form>
 
-            <input type="submit" id="start1" value="Start Pump1">
-            <input type="hidden" name='"Web2Plc".start1' value="1">
-            <input type="hidden" name='"Web2Plc".start1' value="0">
-            <input type="submit" id="stop1" value="Stop Pump1">
-            <input type="hidden" name='"Web2Plc".stop1' value="1">
-            <input type="hidden" name='"Web2Plc".stop1' value="0">
 
 
         </fieldset>

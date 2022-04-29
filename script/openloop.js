@@ -95,11 +95,38 @@ function OnTimer2()
 
     var dynValueInt2 = parseFloat(dynValue2);
 
+    var signs = results[7].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue4 = results[7].substr(count, signs.length);
 
+    var dynValueInt4 = parseFloat(dynValue4);
+
+    var signs = results[8].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue5 = results[8].substr(count, signs.length);
+    var dynValueInt5 = parseFloat(dynValue5);
+    
     if (status < 300) {// check HTTP response status
         ForceUpdate(dynValueInt,dynValueInt2);         // update with the provided value  
         changeTank(dynValueInt);
-
+        changeColorRunning(dynValueInt4);
+        changeColorStopped(dynValueInt5);
 
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
@@ -202,5 +229,25 @@ function changeTank (newValue)
 			
 }
 
+function changeColorRunning(newValue)
+{
+	if (newValue==1) {
+        document.getElementById("pump1running").setAttribute("fill", "green");
+      }
+    if (newValue==0) {
+        document.getElementById("pump1running").setAttribute("fill", "white");
+    } 
+			
+}
 
-//buttons für operator ansteuern, platzierung der einzelnen felder, buttons von Jens, Tankanzeige
+function changeColorStopped(newValue)
+{
+	if (newValue==1) {
+        document.getElementById("pump1stopped").setAttribute("fill", "red");
+      }
+    if (newValue==0) {
+        document.getElementById("pump1stopped").setAttribute("fill", "white");
+    } 
+			
+}
+
