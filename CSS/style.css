@@ -219,6 +219,33 @@ input[type=button], input[type=submit], input[type=reset] {
     padding-right: auto;
 }
 
+#setVoltage{
+    background-color: grey;
+    border: 5px solid rgb(0, 0, 0);
+    color: black;
+    cursor: pointer;
+    font-size: 14;
+    font-family: Arial;
+    font-weight: bold;
+    margin: 2px 2px;
+    display: inline-block;
+    height: 40px;
+    width: auto;
+}
+
+#voltageField{
+    font-size: 14;
+    font-family: Arial;
+    margin-left: 2px;
+    height: 40;
+    width: 90px;
+}
+
+#gauge{
+    display: inline-block;
+
+}
+
 
 
 

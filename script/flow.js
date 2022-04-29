@@ -7,9 +7,11 @@ function Start()
     ForceUpdate(0)    // immediate initialization of the value visualization
     ForceUpdate2(0);
     updateInput(NaN);
+    updateGauge(NaN);
     setTimeout("OnTimer()",200);
     setTimeout("OnTimer2()",250);
     setTimeout("OnTimer3()",100)
+    setTimeout("OnTimer4()",300)
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -54,6 +56,19 @@ function OnTimer3()
         // this asynchronous method does silently update the data within the browser
     }
     setTimeout("OnTimer3()", 100);  // the function OnTimer is to be called every 200 ms
+}
+
+function OnTimer4() 
+{
+    if (! g_bPageRequested) 
+    {
+        g_bPageRequested = true;
+        // request the update page asynchronously, function UpdateCallback is called if response
+        // has been received           
+        DoHttpRequest(this, "update.dat", UpdateCallback4, true);
+        // this asynchronous method does silently update the data within the browser
+    }
+    setTimeout("OnTimer4()", 300);  // the function OnTimer is to be called every 200 ms
 }
 
 // update11.dat has been received
@@ -175,6 +190,44 @@ function UpdateCallback3(obj, response, status) {
     }
 }
 
+function UpdateCallback4(obj, response, status) {
+    var ok;
+    //Splitting the results
+    var results = response.split(" ");
+    //Splitting the results in single signs
+    var signs = results[4].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    //delete signs which aren't numbers
+    dynValue = results[4].substr(count, signs.length);
+    
+    var dynValueInt = parseInt(dynValue);
+
+    if (status < 300) {// check HTTP response status 
+        updateGauge(2); 
+       
+        g_bPageRequested = false;
+        setTimeout("OnTimer4()", 300);  // the function OnTimer is to be called in 200 ms
+        return;
+    }
+    if (status == 503) {               // service currently unvailable , server overloaded 
+        ok = confirm(dynValueInt);
+    } else {
+        ok = confirm("FAILED: HTTP error " + status);
+    }
+    g_bPageRequested = false;
+    if (ok) {
+        setTimeout("OnTimer4()", 1300);  // the function OnTimer is to be called in 1 sec
+    }
+}
+
 // Within the page update11_ajax.html or update11_ajax.js the function ForceUpdate is called with the current value.
 // This value (0..255) controls the width of table "table2" within the table "table1"
 function ForceUpdate(val) 
@@ -233,3 +286,7 @@ function checkVoltage(setPoint, inputField)
 }
 
 
+function updateGauge(newValue)
+{
+ document.getElementById("gauge.pointer").setAttribute("transform", "rotate(" + (newValue*27) + ",55,55)");
+}
