@@ -91,20 +91,43 @@
         <input type="button" id="setVoltage" name="continue" onclick="checkVoltage('%22Web2Plc%22.voltageInput', 'voltageField')" value="Set Voltage">
 
         <svg id="gauge" height="110" width="110">
-            <circle id="gauge.red" cx="55" cy="55" r="40" stroke="#ff0033" stroke-dasharray="188.25 63.08" stroke-width="20px" fill="white" transform="rotate(135, 55,55)"/>
+            <circle id="gauge.red" cx="55" cy="55" r="40" stroke="#ff0033" stroke-dasharray="290.25 63.08" stroke-width="19px" fill="white" transform="rotate(135, 55,55)"/>
             <circle id="gauge.orange" cx="55" cy="55" r="40" stroke="#ffa500" stroke-dasharray="167.55 83.78" stroke-width="20px" fill="white" transform="rotate(150, 55,55)"/>
-            <circle id="gauge.yellow" cx="55" cy="55" r="40" stroke="#ffd700" stroke-dasharray="146.61 104.72" stroke-width="21px" fill="white" transform="rotate(165, 55,55)"/>
-            <circle id="gauge.green" cx="55" cy="55" r="40" stroke="#7cFc00" stroke-dasharray="125.67 125.66" stroke-width="21px" fill="white" transform="rotate(180, 55,55)"/>
+            <circle id="gauge.yellow" cx="55" cy="55" r="40" stroke="#ffd700" stroke-dasharray="146.61 104.72" stroke-width="20px" fill="white" transform="rotate(165, 55,55)"/>
+            <circle id="gauge.green" cx="55" cy="55" r="40" stroke="#7cFc00" stroke-dasharray="125.67 125.66" stroke-width="20px" fill="white" transform="rotate(180, 55,55)"/>
             <circle id="gauge.lines" cx="55" cy="55" r="40" stroke="#000000" stroke-dasharray="1 20" stroke-width="10px" fill="white" transform="rotate(0, 55,55)" />
-            <circle id="gauge.space" cx="55" cy="55" r="40" stroke="white" stroke-dasharray="55.83 190.5" stroke-width="10px" fill="white" transform="rotate(35, 55,55)"/>
+            <circle id="gauge.space" cx="55" cy="55" r="40" stroke="white" stroke-dasharray="25.3 204.5" stroke-width="20px" fill="white" transform="rotate(89, 55,55)"/>
             <text x="37" y="47" fill="black" font-size="11" font-family="Helvetica, Arial, sans-serif">Voltage</text>
             <text x="52" y="70" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">V</text>
-            <text x="25" y="100" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">0</text>
-            <text x="52" y="28" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">5</text>
-            <text x="75" y="100" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">10</text>
+            <text x="29" y="101" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">0</text>
+            <text x="53" y="28" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">5</text>
+            <text x="66" y="101" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">10</text>
             <circle cx="55" id="gauge.point" cy="55" r="5" stroke="black" fill="black" />
-            <polygon id="gauge.pointer" points="20,90 60,55 50,55" fill="black" stroke="black"  />
+            <polygon id="gauge.pointer" points="30,90 60,55 50,55" fill="black" stroke="black"  />
         </svg><br>
+
+        <p>
+            <svg height="150" width="200">
+                <circle id="pump1running" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />
+                <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 running</text>
+            </svg> 
+            <svg height="150" width="200">
+                <circle id="pump1stopped" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="red" />
+                <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 stopped</text>
+            </svg>
+        </p>
+
+        <form >
+            <input type="submit" id="start1" value="Start Pump1">
+            <input type="hidden" name='"Web2Plc".start1' value="1">
+            <input type="hidden" name='"Web2Plc".start1' value="0">
+        </form>
+
+        <form>
+            <input type="submit" id="stop1" value="Stop Pump1">
+            <input type="hidden" name='"Web2Plc".stop1' value="1">
+            <input type="hidden" name='"Web2Plc".stop1' value="0">
+        </form>
         
 
 
