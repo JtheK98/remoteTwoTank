@@ -125,3 +125,27 @@
 			//debug alert("Schreiben erfolgreich!");
 		}
 	}
+
+
+	function send_ajax_request_number(variable, val) 
+	{
+		if (window.XMLHttpRequest) 
+		{
+			req = new XMLHttpRequest();		// Mozilla and others
+		} 
+		else if (window.ActiveXObject) 
+		{
+			req = new ActiveXObject("Microsoft.XMLHTTP");	// Microsoft
+		} 
+		else 
+		{
+			alert("Der Browser unterstuezt kein Ajax");
+		}
+		var value = val;
+		
+		var req_url = "?"+variable+"="+value+"&"+Math.random();
+		//debug alert(req_url);
+		req.open("GET", req_url, false);
+		req.onreadystatechange = ajax_callback;
+		req.send(null);
+	}

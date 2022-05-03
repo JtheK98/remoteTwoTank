@@ -8,10 +8,10 @@ function Start()
     ForceUpdate2(0);
     updateInput(NaN);
     updateGauge(NaN);
-    setTimeout("OnTimer()",200);
-    setTimeout("OnTimer2()",250);
-    setTimeout("OnTimer3()",100)
-    setTimeout("OnTimer4()",300)
+    setTimeout("OnTimer()",50);
+    setTimeout("OnTimer2()",100);
+    setTimeout("OnTimer3()",300)
+    setTimeout("OnTimer4()",200)
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -29,7 +29,7 @@ function OnTimer()
         DoHttpRequest(this, "update.dat",   UpdateCallback, true);    // response is javascript
         // this asynchronous method does silently update the data within the browser
     }
-    setTimeout("OnTimer()", 200);  // the function OnTimer is to be called every 200 ms
+    setTimeout("OnTimer()", 50);  // the function OnTimer is to be called every 200 ms
 }
 
 function OnTimer2() 
@@ -42,7 +42,7 @@ function OnTimer2()
         DoHttpRequest(this, "update.dat", UpdateCallback2, true);
         // this asynchronous method does silently update the data within the browser
     }
-    setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called every 200 ms
+    setTimeout("OnTimer2()", 100);  // the function OnTimer is to be called every 200 ms
 }
 
 function OnTimer3() 
@@ -55,7 +55,7 @@ function OnTimer3()
         DoHttpRequest(this, "update.dat", UpdateCallback3, true);
         // this asynchronous method does silently update the data within the browser
     }
-    setTimeout("OnTimer3()", 100);  // the function OnTimer is to be called every 200 ms
+    setTimeout("OnTimer3()", 300);  // the function OnTimer is to be called every 200 ms
 }
 
 function OnTimer4() 
@@ -68,7 +68,7 @@ function OnTimer4()
         DoHttpRequest(this, "update.dat", UpdateCallback4, true);
         // this asynchronous method does silently update the data within the browser
     }
-    setTimeout("OnTimer4()", 300);  // the function OnTimer is to be called every 200 ms
+    setTimeout("OnTimer4()", 200);  // the function OnTimer is to be called every 200 ms
 }
 
 // update11.dat has been received
@@ -91,13 +91,42 @@ function UpdateCallback(obj, response, status) {
     dynValue = results[1].substr(count, signs.length);
     
     var dynValueInt = parseInt(dynValue);
+    
+    var signs = results[5].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue2 = results[5].substr(count, signs.length);
+
+    var dynValueInt2 = parseInt(dynValue2);
+
+    var signs = results[6].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue3 = results[6].substr(count, signs.length);
+
+    var dynValueInt3 = parseInt(dynValue3);
 
     if (status < 300) {// check HTTP response status
         ForceUpdate(dynValueInt);         // update with the provided value 
-        
+        changeColorRunning(dynValueInt2);
+        changeColorStopped(dynValueInt3);
        
         g_bPageRequested = false;
-        setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
+        setTimeout("OnTimer()", 50);  // the function OnTimer is to be called in 200 ms
         return;
     }
     if (status == 503) {               // service currently unvailable , server overloaded 
@@ -107,7 +136,7 @@ function UpdateCallback(obj, response, status) {
     }
     g_bPageRequested = false;
     if (ok) {
-        setTimeout("OnTimer()", 1000);  // the function OnTimer is to be called in 1 sec
+        setTimeout("OnTimer()", 300);  // the function OnTimer is to be called in 1 sec
     }
 }
 
@@ -132,11 +161,26 @@ function UpdateCallback2(obj, response, status) {
     
     var dynValueInt = parseInt(dynValue);
 
+    var signs = results[8].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue4 = results[8].substr(count, signs.length);
+
+    var dynValueInt4 = parseInt(dynValue4);
+
     if (status < 300) {// check HTTP response status
         ForceUpdate2(dynValueInt);         // update with the provided value  
-       
+        changeColorEStop(dynValueInt4);
+
         g_bPageRequested = false;
-        setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called in 200 ms
+        setTimeout("OnTimer2()", 100);  // the function OnTimer is to be called in 200 ms
         return;
     }
     if (status == 503) {               // service currently unvailable , server overloaded 
@@ -146,7 +190,7 @@ function UpdateCallback2(obj, response, status) {
     }
     g_bPageRequested = false;
     if (ok) {
-        setTimeout("OnTimer2()", 1100);  // the function OnTimer is to be called in 1 sec
+        setTimeout("OnTimer2()", 400);  // the function OnTimer is to be called in 1 sec
     }
 }
 
@@ -176,7 +220,7 @@ function UpdateCallback3(obj, response, status) {
         updateInput(dynValueInt); 
        
         g_bPageRequested = false;
-        setTimeout("OnTimer3()", 100);  // the function OnTimer is to be called in 200 ms
+        setTimeout("OnTimer3()", 300);  // the function OnTimer is to be called in 200 ms
         return;
     }
     if (status == 503) {               // service currently unvailable , server overloaded 
@@ -211,10 +255,10 @@ function UpdateCallback4(obj, response, status) {
     var dynValueInt = parseInt(dynValue);
 
     if (status < 300) {// check HTTP response status 
-        updateGauge(2); 
+        updateGauge(dynValueInt); 
        
         g_bPageRequested = false;
-        setTimeout("OnTimer4()", 300);  // the function OnTimer is to be called in 200 ms
+        setTimeout("OnTimer4()",200);  // the function OnTimer is to be called in 200 ms
         return;
     }
     if (status == 503) {               // service currently unvailable , server overloaded 
@@ -224,7 +268,7 @@ function UpdateCallback4(obj, response, status) {
     }
     g_bPageRequested = false;
     if (ok) {
-        setTimeout("OnTimer4()", 1300);  // the function OnTimer is to be called in 1 sec
+        setTimeout("OnTimer4()", 600);  // the function OnTimer is to be called in 1 sec
     }
 }
 
@@ -260,18 +304,33 @@ function ForceUpdate2(val)
     g_bPageRequested = false; 
 }
 
+var aj_val
+
 function updateInput(indicator){
  
     if(indicator > 1){
         document.getElementById("exper1").style.background = "#ffcccb";
         document.getElementById("exper1").value = "Deactivate";   
-        document.getElementById("value1").value = 0;
+        aj_val = 0;
     }
     else{
         document.getElementById("exper1").style.background = "#ddeedc";
         document.getElementById("exper1").value = "Activate";  
-        document.getElementById("value1").value = 1;  
+        aj_val = 1;  
     }
+}
+
+function sendActivate(activate){
+    if(aj_val>0){
+        var indic = 2;
+    }
+    else{
+        indic = 0;
+    }
+
+    send_ajax_request_number(activate, aj_val);
+    
+    updateInput(indic);
 }
 
 
@@ -282,11 +341,62 @@ function checkVoltage(setPoint, inputField)
         return(false);
     } else{
         send_ajax_request(setPoint, inputField);
+        updateGauge(document.getElementById('voltageField').value)
     } 
 }
 
 
 function updateGauge(newValue)
 {
- document.getElementById("gauge.pointer").setAttribute("transform", "rotate(" + (newValue*27) + ",55,55)");
+ document.getElementById("gauge.pointer").setAttribute("transform", "rotate(" + (newValue*29.2) + ",55,55)");
+}
+
+function changeColorRunning(newValue)
+{
+	if (newValue==1) {
+        document.getElementById("pump1running").setAttribute("fill", "green");
+      }
+    if (newValue==0) {
+        document.getElementById("pump1running").setAttribute("fill", "white");
+    } 
+			
+}
+
+function changeColorStopped(newValue)
+{
+	if (newValue==1) {
+        document.getElementById("pump1stopped").setAttribute("fill", "red");
+      }
+    if (newValue==0) {
+        document.getElementById("pump1stopped").setAttribute("fill", "white");
+    }
+}
+
+function changeColorEStop(value){
+
+    if (value==1) {
+        document.getElementById("stopIndic").setAttribute("fill", "red");
+      }
+    if (value==0) {
+        document.getElementById("stopIndic").setAttribute("fill", "white");
+    }
+
+}
+
+function setVariable(vari){
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
+
+
+function setEStop(vari){
+    changeColorEStop(1);
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
+
+function resetEStop(vari){
+    changeColorEStop(0);
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
 }

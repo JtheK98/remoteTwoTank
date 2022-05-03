@@ -207,7 +207,7 @@ function UpdateCallback3(obj, response, status) {
     //Splitting the results
     var results = response.split(" ");
     //Splitting the results in single signs
-    var signs = results[3].split("");
+    var signs = results[7].split("");
     var i;
     var count = 0;
     for (i = 0; i < signs.length; i++) {
@@ -218,7 +218,7 @@ function UpdateCallback3(obj, response, status) {
         else {break;}		
     }
     //delete signs which aren't numbers
-    dynValue = results[3].substr(count, signs.length);
+    dynValue = results[7].substr(count, signs.length);
     
     var dynValueInt = parseInt(dynValue);
 
@@ -327,15 +327,15 @@ function changeColorTankEmpty(newValue)
 function updateInput(indicator){
  
     if(indicator > 1){
-        document.getElementById("exper1").style.background = "#ffcccb";
-        document.getElementById("exper1").value = "Deactivate";   
-        document.getElementById("value1").value = 0;
+        document.getElementById("exper2").style.background = "#ffcccb";
+        document.getElementById("exper2").value = "Deactivate";   
+        document.getElementById("value2").value = 0;
 
     }
     else{
-        document.getElementById("exper1").style.background = "#ddeedc";
-        document.getElementById("exper1").value = "Activate";  
-        document.getElementById("value1").value = 1;  
+        document.getElementById("exper2").style.background = "#ddeedc";
+        document.getElementById("exper2").value = "Activate";  
+        document.getElementById("value2").value = 1;  
     }
 }
 
