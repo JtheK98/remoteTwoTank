@@ -52,23 +52,18 @@
 
         <h1 id="headFlow1">Experiment 2: Level Sensor Calibration </h1>
 
-        <form>
-            <input type="submit" id="estop" value="E-Stop">
-            <input type="hidden" name='"Web2Plc".eStop' value="1">
-            <input type="hidden" name='"Web2Plc".eStop' value="0">
-        </form>
 
+        <svg height="80" width="50">
+            <circle id="stopIndic" cx="25" cy="30" r="15" stroke="black" stroke-width="2" fill="white" />
+            <text x="10" y="12" fill="black" font-size="10" font-family="Helvetica, Arial, sans-serif">E-Stop</text>
+        </svg>
 
-        <form>
-            <input type="submit" id="eReset" value="E-Stop Reset">
-            <input type="hidden" name='"Web2Plc".eStopReset' value="1">
-            <input type="hidden" name='"Web2Plc".eStopReset' value="0">
-        </form>
+        <input type="button" id="estop" name="continue" onclick="setEStop('%22Web2Plc%22.eStop')" value="E-Stop">
 
-        <form>
-            <input type="submit" id="exper2" value="Activate">
-            <input type="hidden" id="value2" name='"Web2Plc".exper2'>
-        </form>
+        <input type="button" id="eReset" name="continue" onclick="resetEStop('%22Web2Plc%22.eStopReset')" value="E-Stop Reset">
+          
+        <input type="button" id="exper2" name="continue" onclick="sendActivate('%22Web2Plc%22.exper2')">
+
         <div class="wrap">
             <div class="spalte1">
                 <fieldset id="tankvisualisation">
@@ -127,17 +122,9 @@
             <div class="spalte2">
                 <fieldset id="operator" >
                     <legend>Operator Panel</legend>
-                    <form >
-                        <input type="submit" id="start1" value="Start Pump1">
-                        <input type="hidden" name='"Web2Plc".start1' value="1">
-                        <input type="hidden" name='"Web2Plc".start1' value="0">
-                    </form>
-        
-                    <form>
-                        <input type="submit" id="stop1" value="Stop Pump1">
-                        <input type="hidden" name='"Web2Plc".stop1' value="1">
-                        <input type="hidden" name='"Web2Plc".stop1' value="0">
-                    </form>
+                    <input type="button" id="start1" name="continue" onclick="setVariable('%22Web2Plc%22.start1')" value="Start Pump1">
+                    <input type="button" id="stop1" name="continue" onclick="setVariable('%22Web2Plc%22.stop1')" value="Stop Pump1">
+
                     <p>
                         <svg height="150" width="200">
                             <circle id="tank1empty" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />

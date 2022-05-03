@@ -6,8 +6,11 @@ function Start()
     DetermineBrowser();
     ForceUpdate(0)    // immediate initialization of the value visualization
     ForceUpdate2(0);
-    updateInput(NaN);
     updateGauge(NaN);
+    updateInput(NaN);
+    changeColorEStop(NaN);
+    changeColorRunning(0);
+    changeColorStopped(1);
     setTimeout("OnTimer()",50);
     setTimeout("OnTimer2()",100);
     setTimeout("OnTimer3()",300);
