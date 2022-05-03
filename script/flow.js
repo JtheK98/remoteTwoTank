@@ -161,9 +161,24 @@ function UpdateCallback2(obj, response, status) {
     
     var dynValueInt = parseInt(dynValue);
 
+    var signs = results[8].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue4 = results[8].substr(count, signs.length);
+
+    var dynValueInt4 = parseInt(dynValue4);
+
     if (status < 300) {// check HTTP response status
         ForceUpdate2(dynValueInt);         // update with the provided value  
-       
+        changeColorEStop(dynValueInt4);
+
         g_bPageRequested = false;
         setTimeout("OnTimer2()", 100);  // the function OnTimer is to be called in 200 ms
         return;
@@ -289,18 +304,33 @@ function ForceUpdate2(val)
     g_bPageRequested = false; 
 }
 
+var aj_val
+
 function updateInput(indicator){
  
     if(indicator > 1){
         document.getElementById("exper1").style.background = "#ffcccb";
         document.getElementById("exper1").value = "Deactivate";   
-        document.getElementById("value1").value = 0;
+        aj_val = 0;
     }
     else{
         document.getElementById("exper1").style.background = "#ddeedc";
         document.getElementById("exper1").value = "Activate";  
-        document.getElementById("value1").value = 1;  
+        aj_val = 1;  
     }
+}
+
+function sendActivate(activate){
+    if(aj_val>0){
+        var indic = 2;
+    }
+    else{
+        indic = 0;
+    }
+
+    send_ajax_request_number(activate, aj_val);
+    
+    updateInput(indic);
 }
 
 
@@ -311,6 +341,7 @@ function checkVoltage(setPoint, inputField)
         return(false);
     } else{
         send_ajax_request(setPoint, inputField);
+        updateGauge(document.getElementById('voltageField').value)
     } 
 }
 
@@ -339,4 +370,33 @@ function changeColorStopped(newValue)
     if (newValue==0) {
         document.getElementById("pump1stopped").setAttribute("fill", "white");
     }
+}
+
+function changeColorEStop(value){
+
+    if (value==1) {
+        document.getElementById("stopIndic").setAttribute("fill", "red");
+      }
+    if (value==0) {
+        document.getElementById("stopIndic").setAttribute("fill", "white");
+    }
+
+}
+
+function setVariable(vari){
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
+
+
+function setEStop(vari){
+    changeColorEStop(1);
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
+
+function resetEStop(vari){
+    changeColorEStop(0);
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
 }
