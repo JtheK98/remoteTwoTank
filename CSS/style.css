@@ -119,10 +119,8 @@ input[type=button], input[type=submit], input[type=reset] {
 
 #fieldset{
     margin-top: 20px;
-    display: inline-block;
     box-sizing: border-box;
-	width: 50%;
-	height: 150px;
+	height: auto;
 	border: 3px solid #1e1e1e;
     margin-left: 2px;
     font-size: 30;
@@ -152,6 +150,9 @@ input[type=button], input[type=submit], input[type=reset] {
 
 #hideshow{
     display: inline;
+    font-size: 20;
+}
+#notetxt{
     font-size: 20;
 }
 
@@ -241,19 +242,6 @@ input[type=button], input[type=submit], input[type=reset] {
     font-weight: bold;
 }
 
-#notetxt{
-    display: inline-block;
-    float: inline-end;
-    margin-right: 30px;
-    box-sizing: border-box;
-	width: 22%;
-	height: auto;
-	border: 3px solid #1e1e1e;
-    font-size: 20;
-    font-family: arial;
-    padding-left: auto;
-    padding-right: auto;
-}
 
 #setVoltage{
     background-color: grey;

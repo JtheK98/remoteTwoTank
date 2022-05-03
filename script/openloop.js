@@ -12,6 +12,8 @@ function Start()
     setTimeout("OnTimer()",100);
     setTimeout("OnTimer2()",150);
 
+    var x = document.getElementById("hideshow");
+    x.style.display = "none";
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".

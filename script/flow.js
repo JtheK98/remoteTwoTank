@@ -10,8 +10,12 @@ function Start()
     updateGauge(NaN);
     setTimeout("OnTimer()",50);
     setTimeout("OnTimer2()",100);
-    setTimeout("OnTimer3()",300)
-    setTimeout("OnTimer4()",200)
+    setTimeout("OnTimer3()",300);
+    setTimeout("OnTimer4()",200);
+
+    var x = document.getElementById("hideshow");
+    x.style.display = "none";
+
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -400,3 +404,12 @@ function resetEStop(vari){
     send_ajax_request_number(vari, 1);
     send_ajax_request_number(vari, 0);
 }
+
+function hideshowfunction() {
+    var x = document.getElementById("hideshow");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
