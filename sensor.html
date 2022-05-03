@@ -104,6 +104,25 @@
                     <br>
                     <p id="supply">Sensor output: <span id="current">4 mA</span></p>
                 </fieldset>
+                <fieldset id="system" >
+                    <legend>Manual</legend>
+                    <button id="buttonhideshow" onclick="hideshowfunction()">Toggle Manual</button>
+                    <div id="hideshow">
+                        <p>Initial Control Settings:
+                        <li>Valve A and B Closed.</li>
+                        <li>Valve C fully opened.</li>  
+                        </p>
+                        <br>
+                        <p>Procedure:
+                            <li>Increasing n1: Start the pump and stop it when liquid level reading is 10 mm. If the value exceeded 10 mm, slowly open Valve B and allow small amount of water to drain, and closed it when you reach 10 mm. At 10 mm record the sensor output current in n1 column. Repeat until liquid level reach 190 mm.</li> 
+                            <li>Decreasing n1: Now slowly open Valve B allow water to drain and close Valve B when level is 190 mm, record the sensor output value. Repeat until 0mm.</li>
+                            <li> Increasing n2: Repeat step 1.</li>
+                            <li> Decreasing n2: Repeat step 2.</li>
+                            <li> Average: Calculate the average of n1 and n2 for both directions.</li>
+                            <li> PLOT the results to obtain the characteristic of liquid level against sensor output (Average), for both increasing and decreasing sensor output currents.</li>
+                        </p>
+                    </div>
+                </fieldset>
             </div>
             <div class="spalte2">
                 <fieldset id="operator" >

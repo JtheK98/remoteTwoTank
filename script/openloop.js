@@ -1,9 +1,6 @@
 var g_bPageRequested = false;
 
-var elementStart;
-var elementStop;
-var elementResevoir;
-var elementTankEmpty;
+
 
 // a timer will be started, after one second the funktion OnTimer will be called
 function Start() 
@@ -15,18 +12,6 @@ function Start()
     setTimeout("OnTimer()",100);
     setTimeout("OnTimer2()",150);
 
-
-    elementStart = document.getElementById('start1');
-    elementStart.addEventListener("click", () => {
-        document.getElementById("pump1running").setAttribute("fill", "green");
-        document.getElementById("pump1stopped").setAttribute("fill", "white");
-    });
-    
-    elementStart = document.getElementById('stop1');
-    elementStart.addEventListener("click", () => {
-        document.getElementById("pump1running").setAttribute("fill", "white");
-        document.getElementById("pump1stopped").setAttribute("fill", "red");
-    });
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -251,3 +236,11 @@ function changeColorStopped(newValue)
 			
 }
 
+function hideshowfunction() {
+    var x = document.getElementById("hideshow");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }

@@ -4,6 +4,7 @@ var elementStart;
 var elementStop;
 var elementResevoir;
 var elementTankEmpty;
+var elementhideshow;
 
 // a timer will be started, after one second the funktion OnTimer will be called
 function Start() 
@@ -18,18 +19,6 @@ function Start()
     setTimeout("OnTimer3()",200)
 
 
-    elementStart = document.getElementById('start1');
-    // elementStart.addEventListener("click", () => {
-
-    //     document.getElementById("pump1running").setAttribute("fill", "green");
-    //     document.getElementById("pump1stopped").setAttribute("fill", "white");
-    // });
-    
-    elementStart = document.getElementById('stop1');
-    // elementStart.addEventListener("click", () => {
-    //     document.getElementById("pump1running").setAttribute("fill", "white");
-    //     document.getElementById("pump1stopped").setAttribute("fill", "red");
-    // });
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -349,5 +338,14 @@ function updateInput(indicator){
         document.getElementById("value1").value = 1;  
     }
 }
+
+function hideshowfunction() {
+    var x = document.getElementById("hideshow");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
 
 //buttons für operator ansteuern, platzierung der einzelnen felder, buttons von Jens, Tankanzeige
