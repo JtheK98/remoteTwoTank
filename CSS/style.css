@@ -113,6 +113,34 @@ input[type=button], input[type=submit], input[type=reset] {
 
 }
 
+#exper2{
+    border: 5px solid black;
+    color: black;
+    cursor: pointer;
+    font-size: 20;
+    font-family: Arial;
+    font-weight: bold;
+    margin: 4px 2px; 
+    height: 50px;
+    width: auto;
+    float: inline-end;
+
+}
+
+#exper3{
+    border: 5px solid black;
+    color: black;
+    cursor: pointer;
+    font-size: 20;
+    font-family: Arial;
+    font-weight: bold;
+    margin: 4px 2px; 
+    height: 50px;
+    width: auto;
+    float: inline-end;
+
+}
+
 #headReadings{
     font-size: 30;
 }

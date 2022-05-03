@@ -14,6 +14,9 @@ function Start()
     ForceUpdate2("Web2Plc.level1mA");
     changeTank("Web2Plc.tankLevel1mm");
     updateInput(NaN);
+    changeColorEStop(NaN);
+    changeColorRunning(0);
+    changeColorStopped(1);
     setTimeout("OnTimer()",100);
     setTimeout("OnTimer2()",150);
     setTimeout("OnTimer3()",200)
@@ -222,8 +225,24 @@ function UpdateCallback3(obj, response, status) {
     
     var dynValueInt = parseInt(dynValue);
 
+    var signs = results[8].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue4 = results[8].substr(count, signs.length);
+
+    var dynValueInt4 = parseInt(dynValue4);
+
+
     if (status < 300) {// check HTTP response status 
         updateInput(dynValueInt); 
+        changeColorEStop(dynValueInt4);
        
         g_bPageRequested = false;
         setTimeout("OnTimer3()", 100);  // the function OnTimer is to be called in 200 ms
@@ -324,19 +343,34 @@ function changeColorTankEmpty(newValue)
 			
 }
 
+var aj_val
+
 function updateInput(indicator){
  
     if(indicator > 1){
         document.getElementById("exper2").style.background = "#ffcccb";
         document.getElementById("exper2").value = "Deactivate";   
-        document.getElementById("value2").value = 0;
+        aj_val = 0;
 
     }
     else{
         document.getElementById("exper2").style.background = "#ddeedc";
         document.getElementById("exper2").value = "Activate";  
-        document.getElementById("value2").value = 1;  
+        aj_val = 1;
     }
+}
+
+function sendActivate(activate){
+    if(aj_val>0){
+        var indic = 2;
+    }
+    else{
+        indic = 0;
+    }
+
+    send_ajax_request_number(activate, aj_val);
+    
+    updateInput(indic);
 }
 
 function hideshowfunction() {
@@ -349,3 +383,32 @@ function hideshowfunction() {
   }
 
 //buttons für operator ansteuern, platzierung der einzelnen felder, buttons von Jens, Tankanzeige
+
+function changeColorEStop(value){
+
+    if (value==1) {
+        document.getElementById("stopIndic").setAttribute("fill", "red");
+      }
+    if (value==0) {
+        document.getElementById("stopIndic").setAttribute("fill", "white");
+    }
+
+}
+
+function setVariable(vari){
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
+
+
+function setEStop(vari){
+    changeColorEStop(1);
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
+
+function resetEStop(vari){
+    changeColorEStop(0);
+    send_ajax_request_number(vari, 1);
+    send_ajax_request_number(vari, 0);
+}
