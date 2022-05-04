@@ -51,7 +51,7 @@
             </ul>
         </nav>
 
-        <h1 id="headFlow1">Experiment 3: Open Loop System </h1>
+        <h1 id="headFlow1">Experiment 4: Tuning PID by Ziegler Nichols Methods </h1>
 
 
         <svg height="80" width="50">
@@ -78,6 +78,30 @@
                     <p id="supply">Flowrate (FM1): <span id="flow">0 l/min</span></p>
                 </fieldset>
 
+                <fieldset id="graph" >
+                    <legend>Graph</legend>
+                    <div id="chartContainer" style="height: 370px; width:100%;"></div>
+                </fieldset>
+                
+            </div>
+            <div class="spalte2">
+                <fieldset id="operator" >
+                    <legend>Operator Panel</legend>
+                    <input type="button" id="start1" name="continue" onclick="setVariable('%22Web2Plc%22.start1')" value="Start Pump1">
+                    <input type="button" id="stop1" name="continue" onclick="setVariable('%22Web2Plc%22.stop1')" value="Stop Pump1">
+
+                    <p>
+                        <svg height="150" width="200">
+                            <circle id="pump1running" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />
+                            <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 running</text>
+                        </svg> 
+                        <svg height="150" width="200">
+                            <circle id="pump1stopped" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="red" />
+                            <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 stopped</text>
+                        </svg>
+                    </p>
+                    
+                </fieldset>
                 <fieldset id="tankvisualisation">
                     <legend>Level Sensor LC300</legend>
                     <svg height="390" width="330">
@@ -104,50 +128,24 @@
                         </g>                
                     </svg><br>
                 </fieldset>
-            </div>
-            <div class="spalte2">
-                <fieldset id="operator" >
-                    <legend>Operator Panel</legend>
-                    <input type="button" id="start1" name="continue" onclick="setVariable('%22Web2Plc%22.start1')" value="Start Pump1">
-                    <input type="button" id="stop1" name="continue" onclick="setVariable('%22Web2Plc%22.stop1')" value="Stop Pump1">
-
-                    <p>
-                        <svg height="150" width="200">
-                            <circle id="pump1running" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="white" />
-                            <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 running</text>
-                        </svg> 
-                        <svg height="150" width="200">
-                            <circle id="pump1stopped" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="red" />
-                            <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 stopped</text>
-                        </svg>
-                    </p>
-                    
-                </fieldset>
 
                 <fieldset id="system" >
                     <legend>Manual</legend>
                     <button id="buttonhideshow" onclick="hideshowfunction()">Toggle Manual</button>
                     <div id="hideshow">
                         <p>Initial Control Settings:
-                        <li> Valve A Closed.</li>
-                        <li> Valve C and B fully opened.</li>  
+                        <li> Valve B closed</li>
+                        <li> Valve A and C opened.</li> 
+                        <li> Proportional Weighting = 1</li> 
                         </p>
                         <br>
                         <p>Procedure:
-                            <li> Slowly turn Potentiometer clockwise, try to maintain Tank 1 liquid level at 30 mm. When the level is maintained, show the Lab assistant. Record the Level, Voltage, Int Scale and Flow rate</li> 
-                            <li> Now target 60 mm, if it is difficult, adjust valve B until 60 mm is maintained. When the level is maintained, show the Lab assistant. Record the Level, Voltage, Int Scale and Flow rate</li>
+                            <li> Apply the method of Ziegler Nichols</li> 
                         </p>
                     </div>
                 </fieldset>
 
-                <fieldset id="datasheet" >
-                    <legend>System Overview</legend>
-                    <p>
-                        <a>  
-                            <img src="img/levelsensorinfo.PNG" alt="Sensor info" style="width:400;height:auto;">
-                        </a>
-                    </p>
-                </fieldset>
+                
             </div>
         </div>
 
