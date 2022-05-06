@@ -6,10 +6,10 @@ var yVal1 = 100;
 var xVal2 = 0;
 var yVal2 = 100; 
 var updateInterval = 100;
-var dataLength = 20; // number of dataPoints visible at any point
+var dataLength = 50; // number of dataPoints visible at any point
 
-var dps_setpoint1 = []; // dataPoints
-var dps_tanklevel1 = [];
+var dps_setpoint2 = []; // dataPoints
+var dps_tanklevel2 = [];
 
 var chart;
 var updateChart;
@@ -18,9 +18,9 @@ var updateChart;
 function Start() 
 {
     DetermineBrowser();
-    ForceUpdate("Web2Plc.tankLevel1mm","Web2Plc.flow1");    // immediate initialization of the value visualization
-    ForceUpdate2("Web2Plc.pumpVoltage");
-    changeTank("Web2Plc.tankLevel1mm");
+    ForceUpdate("Web2Plc.setPoint2","Web2Plc.flow1");    // immediate initialization of the value visualization
+    //ForceUpdate2("Web2Plc.pumpVoltage");
+    changeTank("Web2Plc.tankLevel2mm");
     updateInput(NaN);
     changeColorEStop(NaN);
     changeColorRunning(0);
@@ -36,7 +36,7 @@ function Start()
     chart = new CanvasJS.Chart("chartContainer", {
         zoomEnabled: true, 
         title :{
-            text: "Tank level 1"
+            text: "Tank level 2"
         },
         axisX:{
             title : "Time",
@@ -64,20 +64,20 @@ function Start()
             type: "line",
             yValueFormatString: "###.00mm",
             showInLegend: true,
-            name: "Setpoint",
-            dataPoints: dps_setpoint1
+            name: "Setpoint 2",
+            dataPoints: dps_setpoint2
             },
             {
             type: "line",
             yValueFormatString: "###.00mm",
             showInLegend: true,
             name: "Current tank level",
-            dataPoints: dps_tanklevel1
+            dataPoints: dps_tanklevel2
             
         }]
         });
 
-    renderUpdatedChart(dps_setpoint1,dps_tanklevel1,chart,dataLength,0,0);
+    renderUpdatedChart(dps_setpoint2,dps_tanklevel2,chart,dataLength,0,0);
 }
 
 // The page update11.dat solely consists of a reference to the variable "Dynvalue".
@@ -130,7 +130,7 @@ function OnTimer3()
     //Splitting the results
     var results = response.split(" ");
     //Splitting the results in single signs
-    var signs = results[4].split("");
+    var signs = results[13].split("");
     var i;
     var count = 0;
     for (i = 0; i < signs.length; i++) {
@@ -141,9 +141,9 @@ function OnTimer3()
         else {break;}		
     }
     //delete signs which aren't numbers
-    dynValue = results[4].substr(count, signs.length);
+    dynValue = results[13].substr(count, signs.length);
     
-    var dynValueInt = parseInt(dynValue);
+    var dynValueInt = parseFloat(dynValue);
 
     var signs = results[2].split("");
     var i;
@@ -158,6 +158,20 @@ function OnTimer3()
     dynValue2 = results[2].substr(count, signs.length);
 
     var dynValueInt2 = parseFloat(dynValue2);
+
+    var signs = results[12].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    dynValue3 = results[12].substr(count, signs.length);
+
+    var dynValueInt3 = parseFloat(dynValue3);
 
     var signs = results[7].split("");
     var i;
@@ -188,9 +202,10 @@ function OnTimer3()
     
     if (status < 300) {// check HTTP response status
         ForceUpdate(dynValueInt,dynValueInt2);         // update with the provided value  
-        changeTank(dynValueInt);
+        changeTank(dynValueInt3);
         changeColorRunning(dynValueInt4);
         changeColorStopped(dynValueInt5);
+        renderUpdatedChart(dps1,dps2,chart,dataLength,dynValueInt,dynValueInt3)
 
         g_bPageRequested = false;
         setTimeout("OnTimer()", 200);  // the function OnTimer is to be called in 200 ms
@@ -305,7 +320,7 @@ function UpdateCallback3(obj, response, status) {
 function ForceUpdate(val1,val2) 
 {
 
-    var td = parent.document.getElementById("level");      // display value numerically
+    var td = parent.document.getElementById("setpoint2");      // display value numerically
     if (td.textContent) 
     {                                // textContent is ok for Firefox, not for IE
        td.textContent = val1+" mm";
@@ -482,4 +497,24 @@ function toggleDataSeries(e) {
 		e.dataSeries.visible = true;
 	}
 	chart.render();
+}
+
+function checkSetpoint2(setPoint, inputField)
+{
+    if(document.getElementById('setPoint2Field').value>190 || document.getElementById('setPoint2Field').value<0){
+        alert("Please enter value btw 0mm and 190mm");
+        return(false);
+    } else{
+        send_ajax_request(setPoint, inputField);
+    } 
+}
+
+function checkPid(setPoint, inputField)
+{
+    if(document.getElementById(inputField).value>190 || document.getElementById(inputField).value<0){
+        alert("Please enter value btw 0 and 100");
+        return(false);
+    } else{
+        send_ajax_request(setPoint, inputField);
+    } 
 }

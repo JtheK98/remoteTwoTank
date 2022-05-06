@@ -18,6 +18,12 @@
     <!-- AWP_In_Variable Name='"Web2Plc".level1mA'-->
     <!-- AWP_In_Variable Name='"Web2Plc".exper3'-->
     <!-- AWP_In_Variable Name='"Web2Plc".exper3Indicator'-->
+    <!-- AWP_In_Variable Name='"Web2Plc".tankLevel2mm'-->
+    <!-- AWP_In_Variable Name='"Web2Plc".setPoint2'-->
+    <!-- AWP_In_Variable Name='"SISO_Tank2".Retain.CtrlParams.Gain'-->
+    <!-- AWP_In_Variable Name='"SISO_Tank2".Retain.CtrlParams.PWeighting'-->
+    <!-- AWP_In_Variable Name='"SISO_Tank2".Retain.CtrlParams.Ti'-->
+    <!-- AWP_In_Variable Name='"SISO_Tank2".Retain.CtrlParams.Td'-->
 
 
     <head>
@@ -31,7 +37,7 @@
 
         <!-- javascript files hinzufügen --> 
 
-        <script type="text/javascript" src="script/openloop.js"></script>
+        <script type="text/javascript" src="script/pid.js"></script>
         <script type="text/javascript" src="script/ajaxbase.js"></script>
         <script type="text/javascript" src="script/canvasjs.min.js"></script>
 
@@ -69,10 +75,7 @@
             <div class="spalte1">
                 <fieldset id="system" >
                     <legend>System Readings</legend>
-                    <p id="supply">Pump Supply Voltage: <span id="voltage">0 V</span></p>
-                    <br>
-                    <br>
-                    <p id="supply">Liquid level: <span id="level">0 mm</span></p>
+                    <p id="supply">Setpoint 2 (SP2): <span id="setpoint2">0 mm</span></p>
                     <br>
                     <br>
                     <p id="supply">Flowrate (FM1): <span id="flow">0 l/min</span></p>
@@ -99,6 +102,26 @@
                             <circle id="pump1stopped" cx="100" cy="90" r="40" stroke="black" stroke-width="3" fill="red" />
                             <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 stopped</text>
                         </svg>
+                    </p>
+                    <p>
+                        <input type="number" placeholder="0mm to 190mm" min="0" max="190" step="1" id="setPoint2Field" name='"Web2Plc".setPoint2' size="17">
+                        <input type="button" id="setVoltage" name="continue" onclick="checkSetpoint2('%22Web2Plc%22.setPoint2', 'setPoint2Field')" value="Set Setpoint2">
+                    </p>
+                    <p>
+                        <input type="number" placeholder="0 to 100" min="0" max="100" step="0.001" id="pgain" name='"SISO_Tank2".Retain.CtrlParams.Gain' size="17">
+                        <input type="button" id="setVoltage" name="continue" onclick="checkPid('%22SISO_Tank2%22.Retain.CtrlParams.Gain', 'pgain')" value="Set Proportional Gain">
+                    </p>
+                    <p>
+                        <input type="number" placeholder="0 to 100" min="0" max="100" step="0.001" id="pweight" name='"SISO_Tank2".Retain.CtrlParams.PWeighting' size="17">
+                        <input type="button" id="setVoltage" name="continue" onclick="checkPid('%22SISO_Tank2%22.Retain.CtrlParams.PWeighting', 'pweight')" value="Set Proportional Weighting">
+                    </p>
+                    <p>
+                        <input type="number" placeholder="0 to 100" min="0" max="100" step="0.001" id="Ti" name='"SISO_Tank2".Retain.CtrlParams.Ti' size="17">
+                        <input type="button" id="setVoltage" name="continue" onclick="checkPid('%22SISO_Tank2%22.Retain.CtrlParams.Ti', 'Ti')" value="Set Ti-Reset Time">
+                    </p>
+                    <p>
+                        <input type="number" placeholder="0 to 100" min="0" max="100" step="0.001" id="Td" name='"SISO_Tank2".Retain.CtrlParams.Td' size="17">
+                        <input type="button" id="setVoltage" name="continue" onclick="checkPid('%22SISO_Tank2%22.Retain.CtrlParams.Td', 'Td')" value="Set Td-Derivative Time">
                     </p>
                     
                 </fieldset>
