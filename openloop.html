@@ -18,7 +18,7 @@
     <!-- AWP_In_Variable Name='"Web2Plc".level1mA'-->
     <!-- AWP_In_Variable Name='"Web2Plc".exper3'-->
     <!-- AWP_In_Variable Name='"Web2Plc".exper3Indicator'-->
-
+    <!-- AWP_In_Variable Name='"Web2Plc".setPoint1Int'-->
 
     <head>
         <meta http-equiv="Content-Language" content="en" >
@@ -45,7 +45,7 @@
                 <li><a href="index.html">Control</a></li>
                 <li><a href="flow.html">Flowmeter</a></li>
                 <li><a href="sensor.html">Sensor Calibration</a></li>
-                <li><a href="openloop.html">Open Loop System</a></li>
+                <li><a class="active" href="openloop.html">Open Loop System</a></li>
                 <li><a href="pid.html">PID Controller</a></li>
 
             </ul>
@@ -69,6 +69,9 @@
             <div class="spalte1">
                 <fieldset id="system" >
                     <legend>System Readings</legend>
+                    <p id="supply">Int Scale: <span id="intscale">0</span></p>
+                    <br>
+                    <br>
                     <p id="supply">Pump Supply Voltage: <span id="voltage">0 V</span></p>
                     <br>
                     <br>
@@ -121,7 +124,17 @@
                             <text x="40" y="40" fill="black" font-size="20" font-family="Helvetica, Arial, sans-serif">Pump 1 stopped</text>
                         </svg>
                     </p>
-                    
+                    <div id="supply">
+                        <p>
+                            Set Int value to <span id="slidervalue">0</span>: 
+                        </p>                      
+                    </div>
+                    <div class="slidercontainer">
+                        <input type="range" min="0" max="32767" value="0" class="slider" id="slidervalue" onchange="changeVoltage(this.value)">
+                    </div>
+                    <div class="box-minmax">
+                        <span>0</span><span>32767</span>
+                      </div>
                 </fieldset>
 
                 <fieldset id="system" >
@@ -144,7 +157,7 @@
                     <legend>System Overview</legend>
                     <p>
                         <a>  
-                            <img src="img/levelsensorinfo.PNG" alt="Sensor info" style="width:400;height:auto;">
+                            <img src="img/exper3.JPG" alt="Sensor info" style="width:400;height:auto;">
                         </a>
                     </p>
                 </fieldset>

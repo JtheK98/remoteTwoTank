@@ -7,7 +7,7 @@ function Start()
 {
     DetermineBrowser();
     ForceUpdate("Web2Plc.tankLevel1mm","Web2Plc.flow1");    // immediate initialization of the value visualization
-    ForceUpdate2("Web2Plc.pumpVoltage");
+    ForceUpdate2("Web2Plc.pumpVoltage","Web2Plc.setPoint1Int");
     changeTank("Web2Plc.tankLevel1mm");
     updateInput(NaN);
     changeColorEStop(NaN);
@@ -166,12 +166,27 @@ function UpdateCallback2(obj, response, status) {
         else {break;}		
     }
     //delete signs which aren't numbers
-    dynValue = results[1].substr(count, signs.length);
+    dynValue1 = results[1].substr(count, signs.length);
     
-    var dynValueInt = parseInt(dynValue);
+    var dynValueInt1 = parseInt(dynValue1);
+
+    var signs = results[18].split("");
+    var i;
+    var count = 0;
+    for (i = 0; i < signs.length; i++) {
+        //Check if the first signs are numbers
+        if (true == isNaN(signs[i])) {
+            count = count + 1;
+        }
+        else {break;}		
+    }
+    //delete signs which aren't numbers
+    dynValue2 = results[18].substr(count, signs.length);
+    
+    var dynValueInt2 = parseInt(dynValue2);
 
     if (status < 300) {// check HTTP response status
-        ForceUpdate2(dynValueInt);         // update with the provided value  
+        ForceUpdate2(dynValueInt1,dynValueInt2);         // update with the provided value  
        
         g_bPageRequested = false;
         setTimeout("OnTimer2()", 250);  // the function OnTimer is to be called in 200 ms
@@ -268,17 +283,27 @@ function ForceUpdate(val1,val2)
     g_bPageRequested = false; 
 }
 
-function ForceUpdate2(val) 
+function ForceUpdate2(val1,val2) 
 {
 
     var td = parent.document.getElementById("voltage");      // display value numerically
     if (td.textContent) 
     {                                // textContent is ok for Firefox, not for IE
-       td.textContent = val+" V";
+       td.textContent = val1+" V";
     }
     else 
     {
-       td.innerHTML   = val+" V";
+       td.innerHTML   = val1+" V";
+    }
+    g_bPageRequested = false;
+    var td = parent.document.getElementById("intscale");      // display value numerically
+    if (td.textContent) 
+    {                                // textContent is ok for Firefox, not for IE
+       td.textContent = val2;
+    }
+    else 
+    {
+       td.innerHTML   = val2;
     }
     g_bPageRequested = false; 
 }
@@ -380,4 +405,19 @@ function sendActivate(activate){
     send_ajax_request_number(activate, aj_val);
     
     updateInput(indic);
+}
+
+function changeVoltage (newValue)
+{
+    send_ajax_request_number('%22Web2Plc%22.setPoint1Int',newValue);	
+    
+    var td = parent.document.getElementById("slidervalue");      // display value numerically
+    if (td.textContent) 
+    {                                // textContent is ok for Firefox, not for IE
+       td.textContent = newValue;
+    }
+    else 
+    {
+       td.innerHTML   = newValue;
+    }	
 }

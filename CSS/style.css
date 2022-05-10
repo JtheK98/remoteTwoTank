@@ -46,6 +46,10 @@ ul li a:hover {
    color: rgb(128,128,128);
 }
 
+ul li a.active {
+    background-color: #eee;
+    color: black;
+  }
 
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #1e1e1e;
@@ -55,7 +59,11 @@ input[type=button], input[type=submit], input[type=reset] {
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
+    transition-duration: 0.2s;
   }
+input:hover{
+    background-color: rgb(64, 64, 64);
+}
 
 #headFlow1{
     box-sizing: border-box;
@@ -82,6 +90,11 @@ input[type=button], input[type=submit], input[type=reset] {
     float: inline-end;
     height: 50px;
     width: 130px;
+    transition-duration: 0.2s;
+}
+
+#estop:hover{
+    background-color: rgb(231, 176, 176);
 }
 
 #eReset{
@@ -97,6 +110,11 @@ input[type=button], input[type=submit], input[type=reset] {
     float: inline-end;
     height: 50px;
     width: auto;
+    transition-duration: 0.2s;
+}
+
+#eReset:hover{
+    background-color: rgb(144, 187, 144);
 }
 
 #exper1{
@@ -110,6 +128,12 @@ input[type=button], input[type=submit], input[type=reset] {
     height: 50px;
     width: auto;
     float: inline-end;
+    transition-duration: 0.2s;
+}
+
+#exper1:hover{
+    border: 5px solid rgb(98, 98, 98);
+    color: rgb(98, 98, 98);
 
 }
 
@@ -124,6 +148,12 @@ input[type=button], input[type=submit], input[type=reset] {
     height: 50px;
     width: auto;
     float: inline-end;
+    transition-duration: 0.2s;
+}
+
+#exper2:hover{
+    border: 5px solid rgb(98, 98, 98);
+    color: rgb(98, 98, 98);
 
 }
 
@@ -138,6 +168,12 @@ input[type=button], input[type=submit], input[type=reset] {
     height: 50px;
     width: auto;
     float: inline-end;
+    transition-duration: 0.2s;
+}
+
+#exper3:hover{
+    border: 5px solid rgb(98, 98, 98);
+    color: rgb(98, 98, 98);
 
 }
 
@@ -180,11 +216,8 @@ input[type=button], input[type=submit], input[type=reset] {
     display: inline;
     font-size: 20;
 }
-#notetxt{
-    font-size: 20;
-}
 
-#buttonshideshow{
+#buttonhideshow{
     background-color: #1e1e1e;
     border: none;
     color: white;
@@ -192,6 +225,14 @@ input[type=button], input[type=submit], input[type=reset] {
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+#notetxt{
+    font-size: 20;
+}
+
+#buttonhideshow:hover{
+    background-color: #5b5b5b;
 }
 
 
@@ -228,6 +269,15 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 #voltage{
+    box-sizing: border-box;
+    border: 2px solid #1e1e1e;
+    background-color: white;
+    display: inline;
+    font-size: 20;
+    padding: 0px 10px 0px 10px;
+}
+
+#intscale{
     box-sizing: border-box;
     border: 2px solid #1e1e1e;
     background-color: white;
@@ -301,6 +351,11 @@ input[type=button], input[type=submit], input[type=reset] {
     display: inline-block;
     height: 40px;
     width: auto;
+    transition-duration: 0.2s;
+}
+
+#setvoltage:hover{
+    background-color: rgb(83, 83, 83);
 }
 
 #voltageField{
@@ -316,6 +371,51 @@ input[type=button], input[type=submit], input[type=reset] {
 
 }
 
+
+.slider {
+    -webkit-appearance: none;
+    width: 55%;
+    height: 12px;
+    background: #000;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background: white;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: white;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  }
+
+  .box-minmax{
+    margin-top: 5px;
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    color: black;
+    span:first-child{
+      margin-left: 10px;
+    }
+  }
 
 
 
